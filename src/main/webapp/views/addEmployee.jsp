@@ -7,11 +7,9 @@
 
 <div class="mycard-cc w3-card-4 w3-round padding-bottom">
     <%@ include file="/fragments/infoPanel.jsp" %>
-
     <div class="w3-container w3-green">
         <h3>Введите данные нового сотрудника:</h3>
     </div>
-
     <div>
         <form method="post" class="w3-container">
             <br/>
@@ -37,14 +35,6 @@
             </table>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
             <input type="submit" class="w3-left w3-hover-green" value="Добавить">
-            <%--            <input type="submit" class="w3-left" style="width:20ch; margin-left: 1ch"--%>
-            <%--                   value="Список сотрудников" formaction="/main/employees/list" formmethod="get">--%>
-            <button style="width:20ch; margin-left: 1ch" class="w3-hover-pale-green" onclick="location.href='/main/employees/list'">Список
-                сотрудников
-            </button>
-            <button style="width:20ch; margin-left: 1ch" class="w3-hover-pale-yellow" onclick="location.href='/main/departments/list'">Список
-                отделов
-            </button>
         </form>
     </div>
 </div>

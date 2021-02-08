@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--@elvariable id="user" type="myapp.model.Account"--%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <%@ include file="/fragments/pageHead.jsp" %>
@@ -15,18 +16,18 @@
     </div>
 
     <div>
-        <form action="/main/login" method="post" class="w3-container">
+        <form action="<c:url value="/main/login"/>" method="post" class="w3-container">
             <br/>
             <div>
                 <table class="big w3-right-align">
                     <tr>
-                        <td>Логин: *</td>
-                        <td><input type="text" name="login" size="35" maxlength="35"
+                        <td><label for="login">Логин: *</label></td>
+                        <td><input type="text" name="login" id="login" size="35" maxlength="35"
                                    autofocus value="${user.login}" required/></td>
                     </tr>
                     <tr>
-                        <td>Пароль: *</td>
-                        <td><input type="password" name="password" size="35" maxlength="35"
+                        <td><label for="password">Пароль: *</label></td>
+                        <td><input type="password" name="password" id="password" size="35" maxlength="35"
                                    value="${user.password}" required=/></td>
                     </tr>
                 </table>
@@ -39,5 +40,4 @@
 <%@ include file="/fragments/bodyFooter.jsp" %>
 </body>
 </html>
-<%--todo общие стили для: кнопки --%>
 

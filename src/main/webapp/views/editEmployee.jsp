@@ -7,11 +7,9 @@
 
 <div class="mycard-cc w3-card-4 w3-round padding-bottom">
     <%@ include file="/fragments/infoPanel.jsp" %>
-
         <div class="w3-container w3-teal">
             <h3>Измените данные сотрудника ${employee.name}</h3>
         </div>
-
         <div>
             <form method="post" class="w3-container">
                 <br/>
@@ -39,13 +37,8 @@
                 </table>
                 <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
                 <input type="submit" class="w3-left w3-hover-teal" value="Изменить">
-                <input type="submit" class="w3-left w3-hover-pale-green" style="width:20ch; margin-left: 1ch"
-                       value="Список сотрудников" formaction="/main/employees/list" formmethod="get">
-                <input type="submit" class="w3-left w3-hover-pale-yellow" style="width:20ch; margin-left: 1ch"
-                       value="Список отделов" formaction="/main/departments/list" formmethod="get">
             </form>
         </div>
-
 </div>
 <%@ include file="/fragments/bodyFooter.jsp" %>
 </body>
