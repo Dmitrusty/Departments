@@ -1,12 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<%@ include file="/fragments/pageHeadBodyHeader.jsp" %>
+<%@ include file="/fragments/pageHead.jsp" %>
+<body class="w3-light-grey">
+<%@ include file="/fragments/bodyHeader.jsp" %>
+
 <div class="w3-container w3-center w3-margin-bottom w3-padding">
     <%@ include file="/fragments/infoPanel.jsp" %>
 
     <div class="w3-card-4">
-        <div class="w3-container w3-pale-yellow">
+        <div class="w3-container w3-pale-yellow w3-padding">
+            <button class="w3-btn w3-round-large w3-hover-yellow w3-border w3-border-black w3-left w3-padding-small"
+                    style="width:25ch" onclick="location.href='/main/departments/add'">Добавить новый отдел
+            </button>
             <h3>Список отделов</h3>
         </div>
 
@@ -18,13 +24,19 @@
                         <form method="get" action="/main/departments/edit">
                             <td>${i.getName()}</td>
                             <td style="float: right">
-                                <button class="w3-btn w3-round-large w3-hover-green w3-opacity w3-border w3-border-black w3-padding-small" type="submit" formaction="/main/employees/list">Сотрудники</button>
+                                <button class="w3-btn w3-round-large w3-hover-green w3-opacity w3-border w3-border-black w3-padding-small"
+                                        type="submit" formaction="/main/employees/list">Сотрудники
+                                </button>
                             </td>
                             <td style="float: right">
-                                <button class="w3-btn w3-round-large w3-hover-red w3-opacity w3-border w3-border-black w3-padding-small" type="submit" formaction="/main/departments/delete">Удалить</button>
+                                <button class="w3-btn w3-round-large w3-hover-red w3-opacity w3-border w3-border-black w3-padding-small"
+                                        type="submit" formaction="/main/departments/delete">Удалить
+                                </button>
                             </td>
                             <td style="float: right">
-                                <button class="w3-btn w3-round-large w3-hover-yellow w3-opacity w3-border w3-border-black w3-padding-small" type="submit" formaction="/main/departments/edit">Редактировать</button>
+                                <button class="w3-btn w3-round-large w3-hover-orange w3-opacity w3-border w3-border-black w3-padding-small"
+                                        type="submit" formaction="/main/departments/edit">Редактировать
+                                </button>
                             </td>
                             <input type="hidden" name="departmentID" value="${i.getId()}">
                         </form>

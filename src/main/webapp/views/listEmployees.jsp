@@ -1,14 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<%@ include file="/fragments/pageHeadBodyHeader.jsp" %>
+<%@ include file="/fragments/pageHead.jsp" %>
+<body class="w3-light-grey">
+<%@ include file="/fragments/bodyHeader.jsp" %>
+
 <div class="w3-container w3-center w3-margin-bottom w3-padding">
     <%@ include file="/fragments/infoPanel.jsp" %>
 
 
-    <div class=" w3-card-4
-        ">
-        <div class="w3-container w3-pale-green">
+    <div class=" w3-card-4">
+        <div class="w3-container w3-pale-green w3-padding">
+            <button class="w3-btn w3-round-large w3-hover-green w3-border w3-border-black w3-left w3-padding-small"
+                    style="width:25ch" onclick="location.href='/main/employees/add'">Добавить нового сотрудника
+            </button>
+            <button class="w3-btn w3-round-large w3-hover-pale-yellow w3-border w3-border-black w3-right w3-padding-small"
+                    style="width:20ch" onclick="location.href='/main/departments/list'">Список отделов
+            </button>
             <h3>Список сотрудников</h3>
         </div>
         <c:if test="${!empty employeesList}">
@@ -36,7 +44,7 @@
                                 </button>
                             </td>
                             <td style="float: right">
-                                <button class="w3-btn w3-round-large w3-hover-green w3-opacity w3-border w3-border-black w3-padding-small"
+                                <button class="w3-btn w3-round-large w3-hover-teal w3-opacity w3-border w3-border-black w3-padding-small"
                                         type="submit" formaction="/main/employees/edit">Редактировать
                                 </button>
                             </td>

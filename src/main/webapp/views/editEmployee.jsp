@@ -1,13 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<%@ include file="/fragments/pageHeadBodyHeader.jsp" %>
-<div class="w3-container w3-center w3-margin-bottom w3-padding">
+<%@ include file="/fragments/pageHead.jsp" %>
+<body class="w3-light-grey">
+<%@ include file="/fragments/bodyHeader.jsp" %>
+
+<div class="mycard-cc w3-card-4 w3-round padding-bottom">
     <%@ include file="/fragments/infoPanel.jsp" %>
 
-    <div class="w3-card-4">
         <div class="w3-container w3-teal">
-            <h3>Измените данные сотрудника:</h3>
+            <h3>Измените данные сотрудника ${employee.name}</h3>
         </div>
 
         <div>
@@ -36,11 +38,14 @@
                     </tr>
                 </table>
                 <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
-                <input type="submit" class="w3-left small" value="Изменить">
+                <input type="submit" class="w3-left w3-hover-teal" value="Изменить">
+                <input type="submit" class="w3-left w3-hover-pale-green" style="width:20ch; margin-left: 1ch"
+                       value="Список сотрудников" formaction="/main/employees/list" formmethod="get">
+                <input type="submit" class="w3-left w3-hover-pale-yellow" style="width:20ch; margin-left: 1ch"
+                       value="Список отделов" formaction="/main/departments/list" formmethod="get">
             </form>
-            <br/>
         </div>
-    </div>
+
 </div>
 <%@ include file="/fragments/bodyFooter.jsp" %>
 </body>

@@ -35,8 +35,8 @@ public class EditEmployeeController implements InterfaceController{
                             oldEmployee.setStartDate(startDate);
                             oldEmployee.setSalary(salary);
                             if (employeesService.updateExistingEmployee(oldEmployee)) {
-                                request.setAttribute("message", name);
-                                request.setAttribute("message", "Изменены данные сотрудника:");
+                                request.setAttribute("name", name);
+                                request.setAttribute("message", "Изменены данные сотрудника ");
                             }
                         }
                     case "GET":

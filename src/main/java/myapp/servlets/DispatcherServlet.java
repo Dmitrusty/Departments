@@ -20,6 +20,7 @@ public class DispatcherServlet extends HttpServlet implements Servlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         dispatcher.getController(req.getRequestURI()).handle(req, resp);
     }
 }

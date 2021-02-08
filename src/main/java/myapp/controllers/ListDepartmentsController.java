@@ -17,7 +17,7 @@ public class ListDepartmentsController implements InterfaceController {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        switch (request.getMethod()) {
+            switch (request.getMethod()) {
             case "POST":
                 break;
             case "GET":
