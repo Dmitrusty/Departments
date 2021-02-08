@@ -20,17 +20,10 @@
                 <tr>
                     <td><label for="nam">Название отдела:*</label></td>
                     <td><input id="nam" type="text" name="name" autofocus size="35" maxlength="35" required/></td>
-
                 </tr>
             </table>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
             <input type="submit" class="w3-left w3-hover-yellow" value="Добавить">
-            <button style="width:20ch; margin-left: 1ch" class="w3-hover-pale-yellow" onclick="location.href='/main/departments/list'">Список
-                отделов
-            </button>
-            <button style="width:20ch; margin-left: 1ch" class="w3-hover-pale-green" onclick="location.href='/main/employees/list'">Список
-                сотрудников
-            </button>
         </form>
     </div>
 </div>

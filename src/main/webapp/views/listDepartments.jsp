@@ -10,9 +10,6 @@
 
     <div class="w3-card-4">
         <div class="w3-container w3-pale-yellow w3-padding">
-            <button class="w3-btn w3-round-large w3-hover-yellow w3-border w3-border-black w3-left w3-padding-small"
-                    style="width:25ch" onclick="location.href='/main/departments/add'">Добавить новый отдел
-            </button>
             <h3>Список отделов</h3>
         </div>
 
@@ -23,11 +20,6 @@
                     <tr class="w3-hover-sand">
                         <form method="get" action="/main/departments/edit">
                             <td>${i.getName()}</td>
-                            <td style="float: right">
-                                <button class="w3-btn w3-round-large w3-hover-green w3-opacity w3-border w3-border-black w3-padding-small"
-                                        type="submit" formaction="/main/employees/list">Сотрудники
-                                </button>
-                            </td>
                             <td style="float: right">
                                 <button class="w3-btn w3-round-large w3-hover-red w3-opacity w3-border w3-border-black w3-padding-small"
                                         type="submit" formaction="/main/departments/delete">Удалить
