@@ -33,7 +33,7 @@
                 </table>
             </div>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
-            <input type="submit" class="w3-left" value="Авторизация">
+            <input type="submit" class="w3-left w3-hover-blue" value="Авторизация">
         </form>
     </div>
 </div>
