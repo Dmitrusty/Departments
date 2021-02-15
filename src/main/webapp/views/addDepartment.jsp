@@ -23,7 +23,14 @@
                 </tr>
             </table>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
-            <input type="submit" class="w3-left w3-hover-yellow" value="Добавить">
+
+            <input type="submit"
+                   class="w3-left w3-btn w3-round-large w3-hover-yellow w3-border w3-border-black w3-padding-small w3-margin-right"
+                   value="Добавить">
+
+            <a class="w3-left w3-btn w3-round-large w3-hover-pale-yellow w3-border w3-border-black w3-padding-small w3-margin-right"
+               href="/main/departments/list">Список отделов</a>
+
         </form>
     </div>
 </div>

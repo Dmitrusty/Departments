@@ -16,12 +16,18 @@
             <table class="big w3-right-align">
                 <tr>
                     <td><label for="nam">Новое название отдела:*</label></td>
-                    <td><input id="nam" type="text" name="name" value="${department.name}" size="35" maxlength="35"
+                    <td><input id="nam" type="text" name="newName" value="${department.name}" size="35" maxlength="35"
                                required/></td>
                 </tr>
             </table>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
-            <input type="submit" class="w3-left w3-hover-orange" value="Изменить">
+
+            <input type="submit"
+                   class="w3-left w3-btn w3-round-large w3-hover-orange w3-border w3-border-black w3-padding-small w3-margin-right"
+                   value="Изменить">
+
+            <a class="w3-left w3-btn w3-round-large w3-hover-pale-yellow w3-border w3-border-black w3-padding-small w3-margin-right"
+               href="/main/departments/list">Список отделов</a>
         </form>
     </div>
 </div>

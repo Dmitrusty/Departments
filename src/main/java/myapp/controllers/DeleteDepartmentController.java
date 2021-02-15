@@ -1,5 +1,6 @@
 package myapp.controllers;
 
+import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.implementations.inMemory.DepartmentsService;
 
@@ -17,15 +18,20 @@ public class DeleteDepartmentController implements InterfaceController{
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int departmentID = Integer.parseInt(request.getParameter("departmentID"));
-        if (departmentID > 0) {
-            String name = departmentsService.deleteDepartmentById(departmentID);
+        String departmentName = request.getParameter("departmentName");
+        Department department = departmentsService.getDepartmentByName(departmentName);
+
+        if (department != null){
+            String name = departmentsService.deleteDepartmentById(department.getId());
             if (name != null) {
-                request.setAttribute("name", name);
                 request.setAttribute("message", "Был удален отдел:");
+                request.setAttribute("name", name);
             }
+        } else {
+            request.setAttribute("message", "для удаления не найден отдел:");
+            request.setAttribute("name", department.getName());
         }
+        
         request.getRequestDispatcher("/main/departments/list").forward(request, response);
-//        response.sendRedirect(request.getContextPath() + "/main/departments/list");
     }
 }

@@ -38,6 +38,19 @@
                 <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
                 <input type="submit" class="w3-left w3-btn w3-round-large w3-hover-teal w3-border w3-border-black w3-padding-small w3-margin-right"
                        value="Изменить">
+
+
+                <c:if test="${departmentName != null}">
+                    <a class="w3-left w3-btn w3-round-large w3-hover-pale-green w3-border w3-border-black w3-padding-small w3-margin-right"
+                       href="/main/employees/list?departmentName=${departmentName}">Список сотрудников
+                        отдела ${departmentName}</a>
+                </c:if>
+                <c:if test="${departmentName == null}">
+                    <a class="w3-left w3-btn w3-disabled w3-round-large w3-hover-pale-green w3-border w3-border-black w3-padding-small w3-margin-right"
+                       href="#">Список сотрудников отдела ...</a>
+                </c:if>
+
+
                 <input type="hidden" name="employeeID" value="${employee.getId()}">
             </form>
         </div>

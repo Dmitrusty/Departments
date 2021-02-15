@@ -18,24 +18,25 @@ public class EditDepartmentController implements InterfaceController {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int departmentID = Integer.parseInt(request.getParameter("departmentID"));
-        if (departmentID > 0) {
-            Department oldDepartment = departmentsService.getDepartmentById(departmentID);
-            if (oldDepartment != null) {
-                switch (request.getMethod()) {
-                    case "POST":
-                        String name = request.getParameter("name");
-                        if (name != null) {
-                            oldDepartment.setName(name);
-                            if (departmentsService.updateExistingDepartment(oldDepartment)) {
-                                request.setAttribute("name", name);
-                                request.setAttribute("message", "Изменены данные отдела:");
-                            }
+        String departmentName = request.getParameter("departmentName");
+        Department department = departmentsService.getDepartmentByName(departmentName);
+
+        if (department != null){
+            request.setAttribute("department", department);
+
+            switch (request.getMethod()) {
+                case "POST":
+                    String newName = request.getParameter("newName");
+                    if (newName != null) {
+                        department.setName(newName);
+                        if (departmentsService.updateExistingDepartment(department)) {
+                            request.setAttribute("message", "Сохранены данные отдела:");
+                            request.setAttribute("name", newName);
+                            request.setAttribute("departmentName", newName);
                         }
-                    case "GET":
-                    default:
-                        request.setAttribute("department", oldDepartment);
-                }
+                    }
+                case "GET":
+                default:
             }
         }
 

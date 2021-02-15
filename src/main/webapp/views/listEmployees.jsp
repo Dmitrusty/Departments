@@ -54,7 +54,7 @@
             </table>
         </c:if>
         <c:if test="${empty employeesList}">
-            <p>Список сотрудников пуст</p>
+            <p class="w3-padding">Список сотрудников пуст</p>
         </c:if>
     </div>
 </div>
