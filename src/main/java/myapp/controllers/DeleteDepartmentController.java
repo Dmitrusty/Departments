@@ -1,7 +1,7 @@
 package myapp.controllers;
 
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementations.DepartmentsService;
+import myapp.service.implementations.inMemory.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +17,8 @@ public class DeleteDepartmentController implements InterfaceController{
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String departmentID = request.getParameter("departmentID");
-        if (departmentID != null) {
+        int departmentID = Integer.parseInt(request.getParameter("departmentID"));
+        if (departmentID > 0) {
             String name = departmentsService.deleteDepartmentById(departmentID);
             if (name != null) {
                 request.setAttribute("name", name);

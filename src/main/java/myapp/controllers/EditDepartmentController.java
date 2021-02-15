@@ -2,7 +2,7 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementations.DepartmentsService;
+import myapp.service.implementations.inMemory.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +18,8 @@ public class EditDepartmentController implements InterfaceController {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String departmentID = request.getParameter("departmentID");
-        if (departmentID != null) {
+        int departmentID = Integer.parseInt(request.getParameter("departmentID"));
+        if (departmentID > 0) {
             Department oldDepartment = departmentsService.getDepartmentById(departmentID);
             if (oldDepartment != null) {
                 switch (request.getMethod()) {

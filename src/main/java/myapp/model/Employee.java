@@ -4,18 +4,20 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Employee {
-    private String id = UUID.randomUUID().toString();
+    private static int counter = 0;
+
+    private final int id;
     private String name;
     private LocalDate startDate;
     private double salary;
+    private int departmentID;
 
-    private String departmentName;
-
-    public Employee(String name, LocalDate startDate, double salary, String departmentName) {
+    public Employee(String name, LocalDate startDate, double salary, int departmentID) {
+        this.id = ++counter;
         this.name = name;
         this.startDate = startDate;
         this.salary = salary;
-        this.departmentName = departmentName;
+        this.departmentID = departmentID;
     }
 
     private Employee(Employee employee) {
@@ -23,14 +25,14 @@ public class Employee {
         this.name = employee.name;
         this.startDate = employee.startDate;
         this.salary = employee.salary;
-        this.departmentName = employee.departmentName;
+        this.departmentID = employee.departmentID;
     }
 
     public Employee makeCopy(){
         return new Employee(this);
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -58,12 +60,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public int getDepartmentID() {
+        return departmentID;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setDepartmentID(int departmentID) {
+        this.departmentID = departmentID;
     }
 
 }

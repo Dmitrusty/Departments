@@ -1,8 +1,7 @@
 package myapp.controllers;
 
 import myapp.service.InterfaceEmployeesService;
-import myapp.service.implementations.DepartmentsService;
-import myapp.service.implementations.EmployeesService;
+import myapp.service.implementations.inMemory.EmployeesService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +17,15 @@ public class DeleteEmployeeController implements InterfaceController{
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String employeeID = request.getParameter("employeeID");
-        if (employeeID != null) {
+//        String employeeID = request.getParameter("employeeID");
+        int employeeID = Integer.parseInt(request.getParameter("employeeID"));
+        if (employeeID > 0) {
             String name = employeesService.deleteEmployeeById(employeeID);
             if (name != null){
-                request.setAttribute("name", name);
                 request.setAttribute("message", "Был удален сотрудник:");
+                request.setAttribute("name", name);
+                request.setAttribute("departmentName", request.getParameter("departmentName"));
+//                request.setAttribute("departmentID", request.getParameter("departmentID"));
             }
         }
 //        response.sendRedirect(request.getContextPath() + "/main/employees/list");

@@ -1,4 +1,4 @@
-package myapp.service.implementations;
+package myapp.service.implementations.inMemory;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
@@ -9,15 +9,15 @@ import java.util.List;
 
 public class DepartmentsService implements InterfaceDepartmentsService {
     private static List<Department> departments = new ArrayList<>(Arrays.asList(
-            new Department("Sales"),
             new Department("IT"),
-            new Department("Security"),
-            new Department("Cleaners")
+            new Department( "Sales"),
+            new Department( "Security"),
+            new Department( "Cleaners")
     ));
 
-    private int getIndexById(String id) {
+    private int getIndexById(int id) {
         for (int i = 0; i < departments.size(); i++) {
-            if (departments.get(i).getId().equals(id)) {
+            if (departments.get(i).getId()== id) {
                 return i;
             }
         }
@@ -25,27 +25,37 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     }
 
     @Override
-    public Department getDepartmentById(String id) {
+    public Department getDepartmentById(int id) {
         int index = getIndexById(id);
         return index < 0 ? null : departments.get(index).makeCopy();
     }
 
-    public String getNameById(String id) {
-        int index = getIndexById(id);
-        return index < 0 ? null : departments.get(index).makeCopy().getName();
-    }
-
-    public static String getIdByName(String name) {
-        for (int i = 0; i < departments.size(); i++) {
-            if (departments.get(i).getName().equals(name)) {
-                return departments.get(i).getId();
+    @Override
+    public Department getDepartmentByName(String name) {
+        for (Department department : departments) {
+            if (department.getName().equals(name)) {
+                return department.makeCopy();
             }
         }
         return null;
     }
 
+    public String getNameById(int id) {
+        int index = getIndexById(id);
+        return index < 0 ? null : departments.get(index).makeCopy().getName();
+    }
+
+    public static int getIdByName(String name) {
+        for (int i = 0; i < departments.size(); i++) {
+            if (departments.get(i).getName().equals(name)) {
+                return departments.get(i).getId();
+            }
+        }
+        return -1;
+    }
+
     @Override
-    public String deleteDepartmentById(String id) {
+    public String deleteDepartmentById(int id) {
         int index = getIndexById(id);
         if (index >= 0) {
             return departments.remove(index).getName();

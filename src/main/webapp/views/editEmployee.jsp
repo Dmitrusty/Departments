@@ -16,27 +16,29 @@
                 <table class="big">
                     <tr>
                         <td><label for="fio">Полное имя (ФИО):*</label></td>
-                        <td><input id="fio" type="text" name="name" value="${employee.name}"
+                        <td><input id="fio" type="text" name="newName" value="${employee.name}"
                                    size="35" maxlength="35" required/></td>
                     </tr>
                     <tr>
                         <td><label for="deptName">Название отдела:*</label></td>
-                        <td><input id="deptName" type="text" name="departmentName" value="${employee.departmentName}"
+                        <td><input id="deptName" type="text" name="newDepartmentName" value="${departmentName}"
                                    size="35" maxlength="35" required/></td>
                     </tr>
                     <tr>
                         <td><label for="sal">Размер зарплаты:*</label></td>
-                        <td><input id="sal" type="number" name="salary" value="${employee.salary}"
+                        <td><input id="sal" type="number" name="newSalary" value="${employee.salary}"
                                    step="1" min="0" max="100000" required/><br/></td>
                     </tr>
                     <tr>
                         <td><label for="dat">Дата начала работы:*</label></td>
-                        <td><input id="dat" type="date" name="startDate" value="${employee.startDate}"
+                        <td><input id="dat" type="date" name="newStartDate" value="${employee.startDate}"
                                    required/></td>
                     </tr>
                 </table>
                 <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
-                <input type="submit" class="w3-left w3-hover-teal" value="Изменить">
+                <input type="submit" class="w3-left w3-btn w3-round-large w3-hover-teal w3-border w3-border-black w3-padding-small w3-margin-right"
+                       value="Изменить">
+                <input type="hidden" name="employeeID" value="${employee.getId()}">
             </form>
         </div>
 </div>

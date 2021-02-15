@@ -1,4 +1,4 @@
-package myapp.service.implementations;
+package myapp.service.implementations.inMemory;
 
 import myapp.model.Account;
 import myapp.service.InterfaceAccountService;

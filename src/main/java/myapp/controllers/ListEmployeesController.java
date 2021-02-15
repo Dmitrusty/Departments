@@ -1,6 +1,9 @@
 package myapp.controllers;
 
-import myapp.service.implementations.EmployeesService;
+import myapp.model.Department;
+import myapp.service.InterfaceDepartmentsService;
+import myapp.service.implementations.inMemory.DepartmentsService;
+import myapp.service.implementations.inMemory.EmployeesService;
 import myapp.service.InterfaceEmployeesService;
 
 import javax.servlet.ServletException;
@@ -10,9 +13,11 @@ import java.io.IOException;
 
 public class ListEmployeesController implements InterfaceController {
     private InterfaceEmployeesService employeesService;
+    private InterfaceDepartmentsService departmentsService;
 
     public ListEmployeesController() {
         this.employeesService = new EmployeesService();
+        this.departmentsService = new DepartmentsService();
     }
 
     @Override
@@ -22,7 +27,14 @@ public class ListEmployeesController implements InterfaceController {
                 break;
             case "GET":
             default:
-                request.setAttribute("employeesList", employeesService.getAllEmployees());
+                String departmentName = request.getParameter("departmentName");
+                Department department = departmentsService.getDepartmentByName(departmentName);
+                if (department != null && departmentName != null){
+                    request.setAttribute("departmentName", departmentName);
+                    request.setAttribute("employeesList", employeesService.getEmployees(department.getId()));
+                } else {
+                    request.setAttribute("message", "Задайте правильное название отдела для вывода списка его соторудников.");
+                }
                 request.getRequestDispatcher("/views/listEmployees.jsp").forward(request, response);
         }
     }

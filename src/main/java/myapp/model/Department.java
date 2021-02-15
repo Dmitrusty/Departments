@@ -1,16 +1,17 @@
 package myapp.model;
 
-import java.util.UUID;
-
 public class Department {
-    private String id = UUID.randomUUID().toString();
+    private static int counter = 0;
+
+    private final int id;
     private String name;
 
     public Department(String name) {
+        this.id = ++counter;
         this.name = name;
     }
 
-    private Department(String id, String name) {
+    private Department(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -27,7 +28,7 @@ public class Department {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 }
