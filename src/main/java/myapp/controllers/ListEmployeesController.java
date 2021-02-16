@@ -2,9 +2,10 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-//import myapp.service.implementations.inMemory.DepartmentsService;
-import myapp.service.implementations.jdbc.DepartmentsService;
-import myapp.service.implementations.inMemory.EmployeesService;
+//import myapp.service.implementation.inMemory.DepartmentsService;
+//import myapp.service.implementation.inMemory.EmployeesService;
+import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.service.implementation.jdbc.EmployeesService;
 import myapp.service.InterfaceEmployeesService;
 
 import javax.servlet.ServletException;

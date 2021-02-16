@@ -4,9 +4,10 @@ import myapp.model.Department;
 import myapp.model.Employee;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
-//import myapp.service.implementations.inMemory.DepartmentsService;
-import myapp.service.implementations.jdbc.DepartmentsService;
-import myapp.service.implementations.inMemory.EmployeesService;
+//import myapp.service.implementation.inMemory.DepartmentsService;
+//import myapp.service.implementation.inMemory.EmployeesService;
+import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.service.implementation.jdbc.EmployeesService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +26,6 @@ public class AddEmployeeController implements InterfaceController{
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //todo departmentName - department = текущий отдел редактируемого сотрудника
-        //todo newDepartmentName - newDepartment = новый отдел редактируемого сотрудника
-
-
-
-
             switch (request.getMethod()){
                 case "POST":
                     String newDepartmentName = request.getParameter("newDepartmentName");

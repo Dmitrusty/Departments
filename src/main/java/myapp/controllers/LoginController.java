@@ -1,7 +1,7 @@
 package myapp.controllers;
 
 import myapp.model.Account;
-import myapp.service.implementations.inMemory.AccountService;
+import myapp.service.implementation.inMemory.AccountService;
 import myapp.utils.MyUtils;
 
 import javax.servlet.ServletException;

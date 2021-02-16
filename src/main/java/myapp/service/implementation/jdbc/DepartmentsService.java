@@ -1,4 +1,4 @@
-package myapp.service.implementations.jdbc;
+package myapp.service.implementation.jdbc;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;

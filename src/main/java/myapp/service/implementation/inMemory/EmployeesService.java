@@ -1,4 +1,4 @@
-package myapp.service.implementations.inMemory;
+package myapp.service.implementation.inMemory;
 
 import myapp.model.Employee;
 import myapp.service.InterfaceEmployeesService;

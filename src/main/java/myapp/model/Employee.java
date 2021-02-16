@@ -12,6 +12,14 @@ public class Employee {
     private double salary;
     private int departmentID;
 
+    public Employee(int id, String name, LocalDate startDate, double salary, int departmentID) {
+        this.id = id;
+        this.name = name;
+        this.startDate = startDate;
+        this.salary = salary;
+        this.departmentID = departmentID;
+    }
+
     public Employee(String name, LocalDate startDate, double salary, int departmentID) {
         this.id = ++counter;
         this.name = name;

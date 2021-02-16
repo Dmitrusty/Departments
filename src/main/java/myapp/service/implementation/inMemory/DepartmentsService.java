@@ -1,4 +1,4 @@
-package myapp.service.implementations.inMemory;
+package myapp.service.implementation.inMemory;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
@@ -46,9 +46,9 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     }
 
     public static int getIdByName(String name) {
-        for (int i = 0; i < departments.size(); i++) {
-            if (departments.get(i).getName().equals(name)) {
-                return departments.get(i).getId();
+        for (Department department : departments) {
+            if (department.getName().equals(name)) {
+                return department.getId();
             }
         }
         return -1;
