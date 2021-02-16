@@ -4,7 +4,8 @@ import myapp.model.Department;
 import myapp.model.Employee;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
-import myapp.service.implementations.inMemory.DepartmentsService;
+//import myapp.service.implementations.inMemory.DepartmentsService;
+import myapp.service.implementations.jdbc.DepartmentsService;
 import myapp.service.implementations.inMemory.EmployeesService;
 
 import javax.servlet.ServletException;

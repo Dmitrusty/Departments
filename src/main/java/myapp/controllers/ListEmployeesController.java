@@ -2,7 +2,8 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementations.inMemory.DepartmentsService;
+//import myapp.service.implementations.inMemory.DepartmentsService;
+import myapp.service.implementations.jdbc.DepartmentsService;
 import myapp.service.implementations.inMemory.EmployeesService;
 import myapp.service.InterfaceEmployeesService;
 

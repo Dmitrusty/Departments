@@ -2,7 +2,8 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementations.inMemory.DepartmentsService;
+//import myapp.service.implementations.inMemory.DepartmentsService;
+import myapp.service.implementations.jdbc.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditDepartmentController implements InterfaceController {
-    private InterfaceDepartmentsService departmentsService;
+    private final InterfaceDepartmentsService departmentsService;
 
     public EditDepartmentController() {
         this.departmentsService = new DepartmentsService();

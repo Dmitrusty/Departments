@@ -1,7 +1,8 @@
 package myapp.controllers;
 
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementations.inMemory.DepartmentsService;
+//import myapp.service.implementations.inMemory.DepartmentsService;
+import myapp.service.implementations.jdbc.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

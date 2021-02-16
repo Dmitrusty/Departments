@@ -11,7 +11,7 @@ public class Department {
         this.name = name;
     }
 
-    private Department(int id, String name) {
+    public Department(int id, String name) {
         this.id = id;
         this.name = name;
     }

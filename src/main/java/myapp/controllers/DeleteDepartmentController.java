@@ -2,7 +2,8 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementations.inMemory.DepartmentsService;
+//import myapp.service.implementations.inMemory.DepartmentsService;
+import myapp.service.implementations.jdbc.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,7 @@ public class DeleteDepartmentController implements InterfaceController{
             }
         } else {
             request.setAttribute("message", "для удаления не найден отдел:");
-            request.setAttribute("name", department.getName());
+            request.setAttribute("name", departmentName);
         }
         
         request.getRequestDispatcher("/main/departments/list").forward(request, response);
