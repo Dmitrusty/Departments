@@ -12,7 +12,7 @@ public interface InterfaceEmployeesService {
 
      List<Employee> getAllEmployees();
 
-     List<Employee> getEmployees(int departmentId);
+     List<Employee> getEmployeesByDepartmentId(int departmentId);
 
      boolean updateExistingEmployee(Employee newEmployee);
 

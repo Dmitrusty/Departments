@@ -33,7 +33,7 @@ public class ListEmployeesController implements InterfaceController {
                 Department department = departmentsService.getDepartmentByName(departmentName);
                 if (department != null && departmentName != null){
                     request.setAttribute("departmentName", departmentName);
-                    request.setAttribute("employeesList", employeesService.getEmployees(department.getId()));
+                    request.setAttribute("employeesList", employeesService.getEmployeesByDepartmentId(department.getId()));
                 } else {
                     request.setAttribute("message", "Задайте правильное название отдела для вывода списка его соторудников.");
                 }

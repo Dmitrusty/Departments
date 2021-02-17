@@ -9,13 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentsService implements InterfaceDepartmentsService {
+    private static final String GET_DEPARTMENT_BY_ID = "SELECT * FROM departments WHERE id = ?";
+    private static final String GET_DEPARTMENT_BY_NAME = "SELECT * FROM departments WHERE name = ?";
+    private static final String DELETE_DEPARTMENT_BY_ID = "DELETE FROM departments WHERE id = ?";
+    private static final String GET_ALL_DEPARTMENTS = "SELECT * FROM departments";
+    private static final String UPDATE_DEPARTMENT_BY_ID = "UPDATE departments SET name = ? WHERE id = ?";
+    private static final String ADD_DEPARTMENT = "INSERT INTO departments (name) VALUES (?)";
+
 
     @Override
     public Department getDepartmentById(int id) {
         Department department = null;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM departments WHERE id = ?")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_DEPARTMENT_BY_ID)) {
 
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -34,7 +41,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         Department department = null;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM departments WHERE name = ?")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_DEPARTMENT_BY_NAME)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -53,8 +60,8 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         String name = null;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement psName = connection.prepareStatement("SELECT * FROM departments WHERE id = ?");
-            PreparedStatement psDelete = connection.prepareStatement("DELETE FROM departments WHERE id = ?")) {
+            PreparedStatement psName = connection.prepareStatement(GET_DEPARTMENT_BY_ID);
+            PreparedStatement psDelete = connection.prepareStatement(DELETE_DEPARTMENT_BY_ID)) {
 
             psName.setInt(1, id);
             ResultSet resultSet = psName.executeQuery();
@@ -79,7 +86,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         Department department;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM departments")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DEPARTMENTS)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -98,7 +105,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         boolean result = false;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE departments SET name = ? WHERE id = ?")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DEPARTMENT_BY_ID)) {
 
             preparedStatement.setString(1, department.getName());
             preparedStatement.setInt(2, department.getId());
@@ -115,7 +122,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         boolean result = false;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO departments (name) VALUES (?)")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_DEPARTMENT)) {
 
             preparedStatement.setString(1, department.getName());
             result = preparedStatement.executeUpdate() > 0;

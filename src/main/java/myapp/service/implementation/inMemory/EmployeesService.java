@@ -54,7 +54,7 @@ public class EmployeesService implements InterfaceEmployeesService {
     }
 
     @Override
-    public List<Employee> getEmployees(int departmentId) {
+    public List<Employee> getEmployeesByDepartmentId(int departmentId) {
         List<Employee> result = new ArrayList<>();
         for (Employee e : employees){
             if (e.getDepartmentID() == departmentId) {

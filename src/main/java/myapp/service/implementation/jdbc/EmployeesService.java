@@ -1,6 +1,5 @@
 package myapp.service.implementation.jdbc;
 
-import myapp.model.Department;
 import myapp.model.Employee;
 import myapp.service.InterfaceEmployeesService;
 import myapp.utils.DatabaseConnection;
@@ -10,12 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeesService implements InterfaceEmployeesService {
+    private static final String GET_EMPLOYEE_BY_ID = "SELECT * FROM employees WHERE id = ?";
+    private static final String DELETE_EMPLOYEE_BY_ID = "DELETE FROM employees WHERE id = ?";
+    private static final String GET_ALL_EMPLOYEES = "SELECT * FROM employees";
+    private static final String GET_ALL_EMPLOYEES_BY_DEPARTMENT = "SELECT * FROM employees WHERE departmentId = ?";
+    private static final String UPDATE_EMPLOYEE_BY_ID = "UPDATE employees SET name = ?, startDate = ?, salary = ?, departmentId = ? WHERE id = ?";
+    private static final String ADD_EMPLOYEE_BY_ID = "INSERT INTO employees (name, startDate, salary, departmentId) VALUES (?,?,?,?)";
+
     @Override
     public Employee getEmployeeById(int id) {
         Employee employee = null;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employees WHERE id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_EMPLOYEE_BY_ID)) {
 
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -38,8 +44,8 @@ public class EmployeesService implements InterfaceEmployeesService {
         String name = null;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement psName = connection.prepareStatement("SELECT * FROM employees WHERE id = ?");
-             PreparedStatement psDelete = connection.prepareStatement("DELETE FROM employees WHERE id = ?")) {
+             PreparedStatement psName = connection.prepareStatement(GET_EMPLOYEE_BY_ID);
+             PreparedStatement psDelete = connection.prepareStatement(DELETE_EMPLOYEE_BY_ID)) {
 
             psName.setInt(1, id);
             ResultSet resultSet = psName.executeQuery();
@@ -64,7 +70,7 @@ public class EmployeesService implements InterfaceEmployeesService {
         Employee employee;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employees")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_EMPLOYEES)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -83,12 +89,12 @@ public class EmployeesService implements InterfaceEmployeesService {
     }
 
     @Override
-    public List<Employee> getEmployees(int departmentId) {
+    public List<Employee> getEmployeesByDepartmentId(int departmentId) {
         List<Employee> result = new ArrayList<>();
         Employee employee;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM employees WHERE departmentId = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_EMPLOYEES_BY_DEPARTMENT)) {
 
             preparedStatement.setInt(1, departmentId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -112,8 +118,7 @@ public class EmployeesService implements InterfaceEmployeesService {
         boolean result = false;
 
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE employees " +
-                     "SET name = ?, startDate = ?, salary = ?, departmentId = ? WHERE id = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EMPLOYEE_BY_ID)) {
 
             preparedStatement.setString(1, newEmployee.getName());
             preparedStatement.setDate(2, Date.valueOf(newEmployee.getStartDate()));
@@ -133,8 +138,7 @@ public class EmployeesService implements InterfaceEmployeesService {
         boolean result = false;
 
         try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO employees " +
-                    "(name, startDate, salary, departmentId) VALUES (?,?,?,?)")) {
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_EMPLOYEE_BY_ID)) {
 
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setDate(2, Date.valueOf(employee.getStartDate()));
