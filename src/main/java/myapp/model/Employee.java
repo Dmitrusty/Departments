@@ -8,20 +8,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class Employee {
     private static int counter = 0;
 
     private final int id;
+
     @NotNull(message = "Название должно быть задано.")
     @NotEmpty(message = "Пожалуйста, введите название.")
     @Length(min = 2, max = 35, message = "Длина имени 2...35 символов.")
     @ValidateWithMethod(methodName = "isUniqueEmpName", parameterType = String.class, message = "Это имя уже занято.")
     @MatchPattern(pattern = "[a-zA-Z ]+", message = "Допустимы только буквы и _")
     private String name;
+
+    @NotNull(message = "Дата начала работы должна быть задана.")
+    @NotEmpty(message = "Пожалуйста, введите дату начала работы.")
+    @ValidateWithMethod(methodName = "isValidDate", parameterType = LocalDate.class, message = "Невозможная дата начала работы.")
     private LocalDate startDate;
+
+    @NotNull(message = "Размер зарплаты должен быть задан.")
+    @NotEmpty(message = "Пожалуйста, введите размер зарплаты.")
+    @Min(value = 100.0, message = "Не может быть меньше 100")
+    @Max(value = 100000.0, message = "Не может быть больше 100000")
     private double salary;
+
     private int departmentID;
 
     public Employee(int id, String name, LocalDate startDate, double salary, int departmentID) {
@@ -64,6 +74,10 @@ public class Employee {
             throwables.printStackTrace();
         }
         return count == 0;
+    }
+
+    private boolean isValidDate (LocalDate date){
+        return date.isBefore(LocalDate.now().plusDays(1)) && date.isAfter(LocalDate.of(2000, 01, 01));
     }
 
     public Employee makeCopy(){

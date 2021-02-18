@@ -16,7 +16,7 @@
             <table class="big">
                 <tr>
                     <td class="w3-right-align"><label for="fio">Полное имя (ФИО):*</label></td>
-                    <td><input id="fio" type="text" name="newName" value="${bufferedName}" size="35" maxlength="35" required/></td>
+                    <td><input id="fio" type="text" name="newName" value="${employee.getName()}" size="35" maxlength="35" required/></td>
                     <c:if test="${nameBadMessage != null}">
                         <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${nameBadMessage}</td>
                     </c:if>
@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td class="w3-right-align"><label for="sal">Размер зарплаты:*</label></td>
-                    <td><input id="sal" type="number" name="newSalary" value="${bufferedSalary}" step="1" min="1" max="100000" required/><br/>
+                    <td><input id="sal" type="number" name="newSalary" value="${employee.getSalary()}" step="1" min="1" max="100000" required/><br/>
                     </td>
                     <c:if test="${salaryBadMessage != null}">
                         <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${salaryBadMessage}</td>
@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <td class="w3-right-align"><label for="dat">Дата начала работы:*</label></td>
-                    <td><input id="dat" type="date" name="newStartDate" value="${bufferedStartDate}" required/></td>
+                    <td><input id="dat" type="date" name="newStartDate" value="${employee.getStartDate()}" required/></td>
                     <c:if test="${startDateBadMessage != null}">
                         <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${startDateBadMessage}</td>
                     </c:if>
@@ -63,7 +63,6 @@
                    href="#">Список сотрудников отдела ...</a>
             </c:if>
 
-
             <input type="hidden" name="departmentName" value="${departmentName}">
         </form>
     </div>
@@ -71,4 +70,3 @@
 <%@ include file="/fragments/bodyFooter.jsp" %>
 </body>
 </html>
-<%--todo здесь и в editEmployee сделать кнопку на форме "Список сотрудников отдела ${departmentName}" так, чтобы переходили в ListEmployees без заполнения required полей--%>
