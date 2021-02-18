@@ -44,14 +44,12 @@ public class EditEmployeeController implements InterfaceController{
                             employee.setStartDate(newStartDate);
                             employee.setSalary(newSalary);
                             if (employeesService.updateExistingEmployee(employee)) {
-                                request.setAttribute("message", "Сохранены данные сотрудника ");
-                                request.setAttribute("name", newName);
+                                request.setAttribute("infoMessage", "Сохранены данные сотрудника " + newName);
                                 request.setAttribute("departmentName", newDepartmentName);
                             }
                         }
                     } else {
-                        request.setAttribute("message", "Не найден отдел с названием: ");
-                        request.setAttribute("name", newDepartmentName);
+                        request.setAttribute("infoMessage", "Не найден отдел с названием: " + newDepartmentName);
                     }
                     break;
                 case "GET":
@@ -62,13 +60,12 @@ public class EditEmployeeController implements InterfaceController{
                         if (department != null) {
                             request.setAttribute("departmentName", departmentName);
                         } else {
-                            request.setAttribute("message", "Не найден отдел с названием: ");
-                            request.setAttribute("name", departmentName);
+                            request.setAttribute("infoMessage", "Не найден отдел с названием: " + departmentName);
                         }
                     }
             }
         } else {
-            request.setAttribute("message", "Не найдены данные редактируемого сотрудника.");
+            request.setAttribute("infoMessage", "Не найдены данные редактируемого сотрудника.");
         }
 
         request.setAttribute("employee", employee);

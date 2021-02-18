@@ -35,7 +35,7 @@ public class ListEmployeesController implements InterfaceController {
                     request.setAttribute("departmentName", departmentName);
                     request.setAttribute("employeesList", employeesService.getEmployeesByDepartmentId(department.getId()));
                 } else {
-                    request.setAttribute("message", "Задайте правильное название отдела для вывода списка его соторудников.");
+                    request.setAttribute("infoMessage", "Задайте правильное название отдела для вывода списка его соторудников.");
                 }
                 request.getRequestDispatcher("/views/listEmployees.jsp").forward(request, response);
         }

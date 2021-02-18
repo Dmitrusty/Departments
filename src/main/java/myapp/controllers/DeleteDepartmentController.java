@@ -25,14 +25,13 @@ public class DeleteDepartmentController implements InterfaceController{
         if (department != null){
             String name = departmentsService.deleteDepartmentById(department.getId());
             if (name != null) {
-                request.setAttribute("message", "Был удален отдел:");
-                request.setAttribute("name", name);
+                request.setAttribute("infoMessage", "Был удален отдел: " + name);
             }
         } else {
-            request.setAttribute("message", "для удаления не найден отдел:");
-            request.setAttribute("name", departmentName);
+            request.setAttribute("infoMessage", "для удаления не найден отдел: " + departmentName);
         }
         
         request.getRequestDispatcher("/main/departments/list").forward(request, response);
     }
 }
+// todo запрет удаления отдела с сотрудниками

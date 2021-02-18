@@ -22,8 +22,7 @@ public class DeleteEmployeeController implements InterfaceController{
         if (employeeID > 0) {
             String name = employeesService.deleteEmployeeById(employeeID);
             if (name != null){
-                request.setAttribute("message", "Был удален сотрудник:");
-                request.setAttribute("name", name);
+                request.setAttribute("infoMessage", "Был удален сотрудник: " + name);
                 request.setAttribute("departmentName", request.getParameter("departmentName"));
 //                request.setAttribute("departmentID", request.getParameter("departmentID"));
             }

@@ -4,17 +4,22 @@ import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
 //import myapp.service.implementation.inMemory.DepartmentsService;
 import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.utils.validator.OvalValidator;
+import net.sf.oval.ConstraintViolation;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class EditDepartmentController implements InterfaceController {
     private final InterfaceDepartmentsService departmentsService;
+    private final OvalValidator validator;
 
     public EditDepartmentController() {
         this.departmentsService = new DepartmentsService();
+        validator = new OvalValidator();
     }
 
     @Override
@@ -28,13 +33,23 @@ public class EditDepartmentController implements InterfaceController {
             switch (request.getMethod()) {
                 case "POST":
                     String newName = request.getParameter("newName");
+
                     if (newName != null) {
                         department.setName(newName);
-                        if (departmentsService.updateExistingDepartment(department)) {
-                            request.setAttribute("message", "Сохранены данные отдела:");
-                            request.setAttribute("name", newName);
-                            request.setAttribute("departmentName", newName);
+                        List<ConstraintViolation> violations = validator.validate(department);
+
+                        if (!violations.isEmpty()) {
+                            // возврат данных в форму на коррекцию пользователем
+                            request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
+                            request.setAttribute("nameBadMessage", validator.getMessage("name", violations));
+                        } else {
+                            // Данные восприняты, готовность к следующему изменению отдела
+                            if (departmentsService.updateExistingDepartment(department)) {
+                                request.setAttribute("infoMessage", "Сохранены данные отдела: " + newName);
+                                request.setAttribute("departmentName", newName);
+                            }
                         }
+                        violations.clear();
                     }
                 case "GET":
                 default:

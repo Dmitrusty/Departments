@@ -16,22 +16,34 @@
             <table class="big">
                 <tr>
                     <td class="w3-right-align"><label for="fio">Полное имя (ФИО):*</label></td>
-                    <td><input id="fio" type="text" name="newName" size="35" maxlength="35" required/></td>
+                    <td><input id="fio" type="text" name="newName" value="${bufferedName}" size="35" maxlength="35" required/></td>
+                    <c:if test="${nameBadMessage != null}">
+                        <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${nameBadMessage}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <td class="w3-right-align"><label for="deptName">Название отдела:*</label></td>
                     <td><input id="deptName" type="text" name="newDepartmentName" value="${departmentName}" size="35"
                                maxlength="35" required/>
                     </td>
+                    <c:if test="${departmentNameBadMessage != null}">
+                        <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${departmentNameBadMessage}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <td class="w3-right-align"><label for="sal">Размер зарплаты:*</label></td>
-                    <td><input id="sal" type="number" name="newSalary" step="1" min="1" max="100000" required/><br/>
+                    <td><input id="sal" type="number" name="newSalary" value="${bufferedSalary}" step="1" min="1" max="100000" required/><br/>
                     </td>
+                    <c:if test="${salaryBadMessage != null}">
+                        <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${salaryBadMessage}</td>
+                    </c:if>
                 </tr>
                 <tr>
                     <td class="w3-right-align"><label for="dat">Дата начала работы:*</label></td>
-                    <td><input id="dat" type="date" name="newStartDate" required/></td>
+                    <td><input id="dat" type="date" name="newStartDate" value="${bufferedStartDate}" required/></td>
+                    <c:if test="${startDateBadMessage != null}">
+                        <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${startDateBadMessage}</td>
+                    </c:if>
                 </tr>
             </table>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
