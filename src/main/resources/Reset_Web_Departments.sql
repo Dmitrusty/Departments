@@ -3,7 +3,7 @@ drop table if exists departments;
 
 
 CREATE TABLE if not exists departments(
-    id int primary key auto_increment,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name varchar(255) not null
 );
 
@@ -12,12 +12,13 @@ INSERT INTO departments values (2, 'Sales');
 INSERT INTO departments values (3, 'Security');
 INSERT INTO departments values (4, 'Cleaners');
 
-CREATE table if not exists employees(
-    id int primary key auto_increment,
-    name varchar (255) not null,
-    startDate date not null,
-    salary decimal(8, 2) not null,
-    departmentId int not null references departments (id)
+CREATE TABLE IF NOT EXISTS employees(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR (255) NOT NULL,
+    startDate DATE NOT NULL,
+    salary DECIMAL(8, 2) NOT NULL,
+    departmentId INT NOT NULL,
+    FOREIGN KEY (departmentId) REFERENCES departments (id)
 );
 
 insert into employees (name, startDate, salary, departmentId)values ('Bob Marley', '1997-01-01', 2000.00, 1);

@@ -71,7 +71,7 @@ public class AddEmployeeController implements InterfaceController {
                         // Данные валидированы, добавляем newEmployee, готовность к следующему добавлению отдела
                         if (employeesService.addEmployee(newEmployee)) {
                             request.setAttribute("infoMessage", "Добавлен сотрудник: " + newName);
-                            newEmployee = null;
+                            request.removeAttribute("employee");
                         }
                     }
                     violations.clear();
