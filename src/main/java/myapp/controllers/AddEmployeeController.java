@@ -19,7 +19,6 @@ import java.util.List;
 public class AddEmployeeController implements InterfaceController {
     private final InterfaceEmployeesService employeesService;
     private final InterfaceDepartmentsService departmentsService;
-    //    private final Validator validator;
     private final OvalValidator validator;
 
     public AddEmployeeController() {
