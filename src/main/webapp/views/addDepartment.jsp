@@ -17,7 +17,8 @@
             <table class="big w3-right-align">
                 <tr>
                     <td><label for="nam">Название отдела:*</label></td>
-                    <td><input id="nam" type="text" name="name" value="${bufferedName}" autofocus size="35" maxlength="35" required/></td>
+                    <td><input id="nam" type="text" name="name" value="${bufferedName}" autofocus size="35"
+                               maxlength="35" required/></td>
                     <c:if test="${nameBadMessage != null}">
                         <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${nameBadMessage}</td>
                     </c:if>

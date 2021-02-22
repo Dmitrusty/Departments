@@ -6,7 +6,6 @@ import net.sf.oval.constraint.*;
 import java.time.LocalDate;
 
 public class Employee {
-//    private static int counter = 0;
 
     private final int id;
 
@@ -39,7 +38,6 @@ public class Employee {
     }
 
     public Employee(String name, LocalDate startDate, double salary, int departmentID) {
-//        this.id = ++counter;
         this.id = 0;
         this.name = name;
         this.startDate = startDate;
@@ -55,11 +53,11 @@ public class Employee {
         this.departmentID = employee.departmentID;
     }
 
-    private boolean isValidDate (LocalDate date){
+    private boolean isValidDate(LocalDate date) {
         return date.isBefore(LocalDate.now().plusDays(1)) && date.isAfter(LocalDate.of(2000, 01, 01));
     }
 
-    public Employee makeCopy(){
+    public Employee makeCopy() {
         return new Employee(this);
     }
 

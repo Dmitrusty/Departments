@@ -67,7 +67,6 @@ public class EditEmployeeController implements InterfaceController {
 
                         if (!violations.isEmpty()) {
                             badFieldsExists = true;
-                            // Выводим сообщения о неправильных полях:
                             request.setAttribute("nameBadMessage", validator.getMessage("name", violations));
                             request.setAttribute("salaryBadMessage", validator.getMessage("salary", violations));
                             request.setAttribute("startDateBadMessage", validator.getMessage("startDate", violations));
@@ -76,7 +75,6 @@ public class EditEmployeeController implements InterfaceController {
                         if (badFieldsExists) {
                             request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                         } else {
-                            // Данные валидированы, обновляем employee, готовность к следующему редактированию
                             if (employeesService.updateExistingEmployee(employee)) {
                                 request.setAttribute("infoMessage", "Сохранены данные сотрудника " + newName);
                                 request.setAttribute("departmentName", newDepartmentName);

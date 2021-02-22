@@ -67,7 +67,6 @@ public class AddEmployeeController implements InterfaceController {
                     if (badFieldsExists) {
                         request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                     } else {
-                        // Данные валидированы, добавляем newEmployee, готовность к следующему добавлению отдела
                         if (employeesService.addEmployee(newEmployee)) {
                             request.setAttribute("infoMessage", "Добавлен сотрудник: " + newName);
                             request.removeAttribute("employee");
@@ -77,7 +76,6 @@ public class AddEmployeeController implements InterfaceController {
                 }
                 break;
 
-
             case "GET":
             default:
                 String departmentName = request.getParameter("departmentName");
@@ -85,7 +83,6 @@ public class AddEmployeeController implements InterfaceController {
                     request.setAttribute("departmentName", departmentName);
                 }
         }
-
 
         request.getRequestDispatcher("/views/addEmployee.jsp").forward(request, response);
     }

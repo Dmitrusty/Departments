@@ -25,12 +25,6 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     }
 
     @Override
-    public Department getDepartmentById(int id) {
-        int index = getIndexById(id);
-        return index < 0 ? null : departments.get(index).makeCopy();
-    }
-
-    @Override
     public Department getDepartmentByName(String name) {
         for (Department department : departments) {
             if (department.getName().equals(name)) {

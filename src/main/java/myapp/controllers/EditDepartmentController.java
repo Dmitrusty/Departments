@@ -2,7 +2,6 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-//import myapp.service.implementation.inMemory.DepartmentsService;
 import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
@@ -27,7 +26,7 @@ public class EditDepartmentController implements InterfaceController {
         String departmentName = request.getParameter("departmentName");
         Department department = departmentsService.getDepartmentByName(departmentName);
 
-        if (department != null){
+        if (department != null) {
             request.setAttribute("department", department);
 
             switch (request.getMethod()) {
@@ -39,11 +38,9 @@ public class EditDepartmentController implements InterfaceController {
                         List<ConstraintViolation> violations = validator.validate(department);
 
                         if (!violations.isEmpty()) {
-                            // возврат данных в форму на коррекцию пользователем
                             request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                             request.setAttribute("nameBadMessage", validator.getMessage("name", violations));
                         } else {
-                            // Данные восприняты, готовность к следующему изменению отдела
                             if (departmentsService.updateExistingDepartment(department)) {
                                 request.setAttribute("infoMessage", "Сохранены данные отдела: " + newName);
                                 request.setAttribute("departmentName", newName);

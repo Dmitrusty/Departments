@@ -10,10 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 
 public class MyUtils {
-
-
     public static final String ATT_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
-
     private static final String ATT_NAME_USER_NAME = "ATTRIBUTE_FOR_STORE_USER_NAME_IN_COOKIE";
 
     /**
@@ -25,7 +22,7 @@ public class MyUtils {
         request.setAttribute(ATT_NAME_CONNECTION, conn);
     }
 
-//    Получить объект Connection сохраненный в attribute в request.
+    //    Получить объект Connection сохраненный в attribute в request.
     public static Connection getStoredConnection(ServletRequest request) {
         Connection conn = (Connection) request.getAttribute(ATT_NAME_CONNECTION);
         return conn;
@@ -76,6 +73,4 @@ public class MyUtils {
         cookieUserName.setMaxAge(0);
         response.addCookie(cookieUserName);
     }
-
-
 }

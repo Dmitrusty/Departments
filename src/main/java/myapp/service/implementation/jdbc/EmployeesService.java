@@ -12,7 +12,6 @@ public class EmployeesService implements InterfaceEmployeesService {
     private static final String GET_EMPLOYEE_BY_ID = "SELECT * FROM employees WHERE id = ?";
     private static final String GET_EMPLOYEE_BY_NAME = "SELECT * FROM employees WHERE name = ?";
     private static final String DELETE_EMPLOYEE_BY_ID = "DELETE FROM employees WHERE id = ?";
-    private static final String GET_ALL_EMPLOYEES = "SELECT * FROM employees";
     private static final String GET_ALL_EMPLOYEES_BY_DEPARTMENT = "SELECT * FROM employees WHERE departmentId = ?";
     private static final String UPDATE_EMPLOYEE_BY_ID = "UPDATE employees SET name = ?, startDate = ?, salary = ?, departmentId = ? WHERE id = ?";
     private static final String ADD_EMPLOYEE_BY_ID = "INSERT INTO employees (name, startDate, salary, departmentId) VALUES (?,?,?,?)";
@@ -89,30 +88,6 @@ public class EmployeesService implements InterfaceEmployeesService {
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        List<Employee> result = new ArrayList<>();
-        Employee employee;
-
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_EMPLOYEES)) {
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                employee = new Employee(resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getDate("startDate").toLocalDate(),
-                        resultSet.getDouble("salary"),
-                        resultSet.getInt("departmentId"));
-                result.add(employee);
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
     public List<Employee> getEmployeesByDepartmentId(int departmentId) {
         List<Employee> result = new ArrayList<>();
         Employee employee;
@@ -161,8 +136,8 @@ public class EmployeesService implements InterfaceEmployeesService {
     public boolean addEmployee(Employee employee) {
         boolean result = false;
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(ADD_EMPLOYEE_BY_ID)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_EMPLOYEE_BY_ID)) {
 
             preparedStatement.setString(1, employee.getName());
             preparedStatement.setDate(2, Date.valueOf(employee.getStartDate()));

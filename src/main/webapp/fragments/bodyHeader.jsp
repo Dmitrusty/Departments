@@ -11,7 +11,7 @@
     <div>
         <div class="w3-container w3-card-4 w3-blue w3-padding">
             <div style="float: left">
-<%--                Выпадающие меню--%>
+                <%--                Выпадающие меню--%>
                 <div class="w3-dropdown-hover">
                     <button class="w3-button w3-blue w3-hover-blue">Отделы</button>
                     <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-blue">
@@ -26,22 +26,24 @@
                 <div class="w3-dropdown-hover">
                     <button class="w3-button w3-blue w3-hover-blue">Сотрудники</button>
                     <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-blue">
-                            <c:if test="${departmentName != null}">
-                                <a class="w3-bar-item w3-btn w3-hover-pale-green w3-padding-small"
-                                   href="/main/employees/list?departmentName=${departmentName}">Список сотрудников отдела ${departmentName}</a>
-                                <button class="w3-bar-item w3-btn w3-hover-green w3-padding-small"
-                                        onclick="location.href='/main/employees/add?departmentName=${departmentName}'">Добавить нового сотрудника в отдел ${departmentName}
-                                </button>
-                            </c:if>
-                            <c:if test="${departmentName == null}">
-                                <a class="w3-bar-item w3-btn w3-disabled w3-hover-pale-green w3-padding-small"
-                                   href="#">Список сотрудников отдела ...</a>
-                                <a href="/main/employees/add" class="w3-bar-item w3-btn w3-hover-green w3-padding-small">
+                        <c:if test="${departmentName != null}">
+                            <a class="w3-bar-item w3-btn w3-hover-pale-green w3-padding-small"
+                               href="/main/employees/list?departmentName=${departmentName}">Список сотрудников
+                                отдела ${departmentName}</a>
+                            <button class="w3-bar-item w3-btn w3-hover-green w3-padding-small"
+                                    onclick="location.href='/main/employees/add?departmentName=${departmentName}'">
+                                Добавить нового сотрудника в отдел ${departmentName}
+                            </button>
+                        </c:if>
+                        <c:if test="${departmentName == null}">
+                            <a class="w3-bar-item w3-btn w3-disabled w3-hover-pale-green w3-padding-small"
+                               href="#">Список сотрудников отдела ...</a>
+                            <a href="/main/employees/add" class="w3-bar-item w3-btn w3-hover-green w3-padding-small">
                                 Добавить нового сотрудника</a>
-                            </c:if>
+                        </c:if>
                     </div>
                 </div>
-<%--                Отдельные кнопки--%>
+                <%--                Отдельные кнопки--%>
                 <button class="w3-btn w3-round-large w3-hover-pale-yellow w3-border w3-border-black w3-padding-small"
                         style="width:20ch" onclick="location.href='/main/departments/list'">Список отделов
                 </button>
@@ -50,9 +52,11 @@
                 </button>
                 <c:if test="${departmentName != null}">
                     <a class="w3-btn w3-round-large w3-hover-pale-green w3-border w3-border-black w3-padding-small"
-                       href="/main/employees/list?departmentName=${departmentName}">Список сотрудников отдела ${departmentName}</a>
+                       href="/main/employees/list?departmentName=${departmentName}">Список сотрудников
+                        отдела ${departmentName}</a>
                     <button class="w3-btn w3-round-large w3-hover-green w3-border w3-border-black w3-padding-small"
-                             onclick="location.href='/main/employees/add?departmentName=${departmentName}'">Добавить нового сотрудника в отдел ${departmentName}
+                            onclick="location.href='/main/employees/add?departmentName=${departmentName}'">Добавить
+                        нового сотрудника в отдел ${departmentName}
                     </button>
                 </c:if>
                 <c:if test="${departmentName == null}">

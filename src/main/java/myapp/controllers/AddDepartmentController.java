@@ -3,12 +3,9 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-//import myapp.service.implementation.inMemory.DepartmentsService;
 import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
-import net.sf.oval.Validator;
-import net.sf.oval.context.FieldContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,19 +24,18 @@ public class AddDepartmentController implements InterfaceController {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        switch (request.getMethod()){
+        switch (request.getMethod()) {
             case "POST":
                 String name = request.getParameter("name");
                 if (name != null) {
                     Department department = new Department(name);
                     List<ConstraintViolation> violations = validator.validate(department);
+
                     if (!violations.isEmpty()) {
-                        // возврат данных в форму на коррекцию пользователем
                         request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                         request.setAttribute("bufferedName", name);
                         request.setAttribute("nameBadMessage", validator.getMessage("name", violations));
                     } else {
-                        // Данные восприняты, готовность к следующему добавлению отдела
                         if (departmentsService.addDepartment(department)) {
                             request.setAttribute("infoMessage", "Был добавлен новый отдел: " + name);
                         }

@@ -18,30 +18,11 @@ public class DepartmentsService implements InterfaceDepartmentsService {
 
 
     @Override
-    public Department getDepartmentById(int id) {
-        Department department = null;
-
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_DEPARTMENT_BY_ID)) {
-
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                department = new Department(id, resultSet.getString("name"));
-            }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return department;
-    }
-
-    @Override
     public Department getDepartmentByName(String name) {
         Department department = null;
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_DEPARTMENT_BY_NAME)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_DEPARTMENT_BY_NAME)) {
 
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -59,9 +40,9 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     public String deleteDepartmentById(int id) {
         String name = null;
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement psName = connection.prepareStatement(GET_DEPARTMENT_BY_ID);
-            PreparedStatement psDelete = connection.prepareStatement(DELETE_DEPARTMENT_BY_ID)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement psName = connection.prepareStatement(GET_DEPARTMENT_BY_ID);
+             PreparedStatement psDelete = connection.prepareStatement(DELETE_DEPARTMENT_BY_ID)) {
 
             psName.setInt(1, id);
             ResultSet resultSet = psName.executeQuery();
@@ -69,7 +50,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
                 String bufferName = resultSet.getString("name");
 
                 psDelete.setInt(1, id);
-                if (psDelete.executeUpdate() > 0){
+                if (psDelete.executeUpdate() > 0) {
                     name = bufferName;
                 }
             }
@@ -85,8 +66,8 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         List<Department> result = new ArrayList<>();
         Department department;
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DEPARTMENTS)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DEPARTMENTS)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -104,8 +85,8 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     public boolean updateExistingDepartment(Department department) {
         boolean result = false;
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DEPARTMENT_BY_ID)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DEPARTMENT_BY_ID)) {
 
             preparedStatement.setString(1, department.getName());
             preparedStatement.setInt(2, department.getId());
@@ -121,8 +102,8 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     public boolean addDepartment(Department department) {
         boolean result = false;
 
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(ADD_DEPARTMENT)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(ADD_DEPARTMENT)) {
 
             preparedStatement.setString(1, department.getName());
             result = preparedStatement.executeUpdate() > 0;

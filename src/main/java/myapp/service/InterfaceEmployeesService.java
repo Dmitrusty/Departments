@@ -12,8 +12,6 @@ public interface InterfaceEmployeesService {
 
      String deleteEmployeeById(int id);
 
-     List<Employee> getAllEmployees();
-
      List<Employee> getEmployeesByDepartmentId(int departmentId);
 
      boolean updateExistingEmployee(Employee newEmployee);

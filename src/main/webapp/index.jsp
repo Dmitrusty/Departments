@@ -1,5 +1,5 @@
 <%--@elvariable id="user" type="myapp.model.Account"--%>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <%@ include file="/fragments/pageHead.jsp" %>
@@ -11,6 +11,8 @@
 </div>
 
 <div class="mycard-cc w3-card-4 w3-round padding-bottom">
+    <%@ include file="/fragments/infoPanel.jsp" %>
+
     <div class="w3-container w3-blue">
         <h2>Введите логин и пароль:</h2>
     </div>

@@ -17,8 +17,7 @@ public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
         Employee employee = (Employee) validatedEmployee;
         Employee employeeFromDB = employeeService.getEmployeeByName(employee.getName());
 
-        // Это создание сотрудника с уникальным именем. Пропускаем
-        if (employeeFromDB == null) {
+        if (employeeFromDB == null) { // Уникальное новое имя - разрешаем
             return true;
         }
 
@@ -33,26 +32,3 @@ public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
         }
     }
 }
-
-//public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
-//
-//    private final employeeServiceImpl employeeService;
-//
-//    public CheckUniqueName() {
-//        employeeService = new employeeServiceImpl();
-//    }
-//
-//    @Override
-//    public boolean isSatisfied(Object validatedemployee, Object name) {
-//        employee employee = (employee) validatedemployee;
-//        employee employeeFromDB = employeeService.findByName(employee.getName());
-//        try {
-//            if (employeeFromDB == null) {
-//                return true;
-//            }
-//            return !(employeeFromDB.getId().equals(employee.getId()) || employeeFromDB.getName().equals(employee.getName()));
-//        } catch (Exception ignored) {
-//            return true;
-//        }
-//    }
-//}

@@ -34,17 +34,14 @@ public class LoginController implements InterfaceController {
                         // удалить инфо о пользователе в Session,
                         MyUtils.deleteLoginedUser(request.getSession());
                         request.setAttribute("user", check);
+                        // выдать сообщение "неверный логин или пароль"
+                        request.setAttribute("infoMessage", "Неверный логин или пароль. Повторите ввод.");
                     }
                 }
-                // если логин или пароль не получены:
-                // выдать сообщение "неверный логин или пароль"
-                request.setAttribute("Message", "Неверный логин или пароль. Повторите ввод.");
-                // forward (перенаправить) к /main/login.jsp
-//                request.getRequestDispatcher("/index.jsp").forward(request, response);
-//                break;z
             case "GET":
             default:
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 }
+//todo переименовать index.jsp в login.jsp

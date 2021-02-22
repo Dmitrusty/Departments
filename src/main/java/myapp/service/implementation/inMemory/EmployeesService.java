@@ -51,15 +51,6 @@ public class EmployeesService implements InterfaceEmployeesService {
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        List<Employee> result = new ArrayList<>();
-        for (Employee e : employees){
-            result.add(e.makeCopy());
-        }
-        return result;
-    }
-
-    @Override
     public List<Employee> getEmployeesByDepartmentId(int departmentId) {
         List<Employee> result = new ArrayList<>();
         for (Employee e : employees){

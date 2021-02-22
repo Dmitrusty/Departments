@@ -8,7 +8,6 @@
 <div class="mycard-cc w3-card-4 w3-round padding-bottom">
     <%@ include file="/fragments/infoPanel.jsp" %>
     <div class="w3-container w3-orange">
-        <!-- TODO сохранить старое название в отдельную переменную  -->
         <h3>Измените данные отдела <c:out value="${department.name}"/></h3>
     </div>
     <div>

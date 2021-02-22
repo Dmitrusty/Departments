@@ -8,7 +8,7 @@
 
 <div class="w3-container w3-center w3-margin-bottom w3-padding">
     <%@ include file="/fragments/infoPanel.jsp" %>
-        <div class=" w3-card-4">
+    <div class=" w3-card-4">
         <div class="w3-container w3-pale-green w3-padding">
             <c:if test="${departmentName != null}">
                 <h3>Список сотрудников отдела ${departmentName}:</h3>

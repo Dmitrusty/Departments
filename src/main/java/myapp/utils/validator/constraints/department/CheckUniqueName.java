@@ -23,7 +23,7 @@ public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
         }
 
         // Новое имя отдела уже используется
-        if (departmentFromDB.getId() == department.getId()){
+        if (departmentFromDB.getId() == department.getId()) {
             // Отдел один и тот же - идет коррекция
             // Разрешаем если имя не меняется, и наоборот
             return departmentFromDB.getName().equals(newName);
@@ -34,26 +34,3 @@ public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
         }
     }
 }
-
-//public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
-//
-//    private final DepartmentServiceImpl departmentService;
-//
-//    public CheckUniqueName() {
-//        departmentService = new DepartmentServiceImpl();
-//    }
-//
-//    @Override
-//    public boolean isSatisfied(Object validatedDepartment, Object name) {
-//        Department department = (Department) validatedDepartment;
-//        Department departmentFromDB = departmentService.findByName(department.getName());
-//        try {
-//            if (departmentFromDB == null) {
-//                return true;
-//            }
-//            return !(departmentFromDB.getId().equals(department.getId()) || departmentFromDB.getName().equals(department.getName()));
-//        } catch (Exception ignored) {
-//            return true;
-//        }
-//    }
-//}
