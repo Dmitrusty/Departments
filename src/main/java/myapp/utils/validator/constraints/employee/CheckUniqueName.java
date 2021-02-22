@@ -23,11 +23,11 @@ public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
         }
 
         if (employeeFromDB.getId() == employee.getId()) {
-            // Сотрудник один и тот же
+            // Сотрудник один и тот же, идет коррекция
             // Разрешаем если имя не меняется, и наоборот
             return employeeFromDB.getName().equals(employee.getName());
         } else {
-            // Сотрудник новый
+            // Сотрудник новый, идет добавление
             // Разрешаем если имя тоже новое, и наоборот
             return !employeeFromDB.getName().equals(employee.getName());
         }

@@ -51,17 +51,4 @@ public class AddDepartmentController implements InterfaceController {
                 request.getRequestDispatcher("/views/addDepartment.jsp").forward(request, response);
         }
     }
-
-//    private String getMessage(String fieldName, List<ConstraintViolation> violations) {
-//        boolean isBadField = false;
-//        StringBuilder msg = new StringBuilder();
-//
-//        for (ConstraintViolation v : violations) {
-//            if (((FieldContext)v.getContext()).getField().getName().equals(fieldName)) {
-//                isBadField = true;
-//                msg.append(v.getMessage()).append("  ");
-//            }
-//        }
-//        return isBadField ? msg.toString() : null;
-//    }
 }
