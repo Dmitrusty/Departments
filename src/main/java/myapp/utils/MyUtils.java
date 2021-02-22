@@ -16,14 +16,16 @@ public class MyUtils {
 
     private static final String ATT_NAME_USER_NAME = "ATTRIBUTE_FOR_STORE_USER_NAME_IN_COOKIE";
 
-    // Сохранить Connection в attribute в request.
-    // Данная информация хранения существует только во время запроса (request)
-    // до тех пор, пока данные возвращаются приложению пользователя.
+    /**
+     * Сохранить Connection в attribute в request.
+     * Данная информация хранения существует только во время запроса (request)
+     * до тех пор, пока данные возвращаются приложению пользователя.
+     */
     public static void storeConnection(ServletRequest request, Connection conn) {
         request.setAttribute(ATT_NAME_CONNECTION, conn);
     }
 
-    // Получить объект Connection сохраненный в attribute в request.
+//    Получить объект Connection сохраненный в attribute в request.
     public static Connection getStoredConnection(ServletRequest request) {
         Connection conn = (Connection) request.getAttribute(ATT_NAME_CONNECTION);
         return conn;

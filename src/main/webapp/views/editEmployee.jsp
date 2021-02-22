@@ -8,7 +8,7 @@
 <div class="mycard-cc w3-card-4 w3-round padding-bottom">
     <%@ include file="/fragments/infoPanel.jsp" %>
         <div class="w3-container w3-teal">
-            <h3>Измените данные сотрудника ${employee.name}</h3>
+            <h3>Измените данные сотрудника <c:out value="${oldName}"/></h3>
         </div>
         <div>
             <form method="post" class="w3-container">
@@ -33,7 +33,7 @@
                     <tr>
                         <td><label for="sal">Размер зарплаты:*</label></td>
                         <td><input id="sal" type="number" name="newSalary" value="${employee.salary}"
-                                   step="1" min="0" max="100000" required/><br/></td>
+                                   step="1" min="100" max="100000" required/><br/></td>
                         <c:if test="${salaryBadMessage != null}">
                             <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${salaryBadMessage}</td>
                         </c:if>

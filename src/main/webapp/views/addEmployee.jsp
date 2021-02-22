@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td class="w3-right-align"><label for="sal">Размер зарплаты:*</label></td>
-                    <td><input id="sal" type="number" name="newSalary" value="${employee.getSalary()}" step="1" min="1" max="100000" required/><br/>
+                    <td><input id="sal" type="number" name="newSalary" value="${employee.getSalary()}" step="1" min="100" max="100000" required/><br/>
                     </td>
                     <c:if test="${salaryBadMessage != null}">
                         <td class="small w3-panel w3-pale-red w3-display-container w3-card-4 w3-round">${salaryBadMessage}</td>

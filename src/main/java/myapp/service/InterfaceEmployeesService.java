@@ -8,6 +8,8 @@ public interface InterfaceEmployeesService {
 
      Employee getEmployeeById(int id);
 
+     Employee getEmployeeByName(String name);
+
      String deleteEmployeeById(int id);
 
      List<Employee> getAllEmployees();

@@ -10,6 +10,7 @@ import java.util.List;
 
 public class EmployeesService implements InterfaceEmployeesService {
     private static final String GET_EMPLOYEE_BY_ID = "SELECT * FROM employees WHERE id = ?";
+    private static final String GET_EMPLOYEE_BY_NAME = "SELECT * FROM employees WHERE name = ?";
     private static final String DELETE_EMPLOYEE_BY_ID = "DELETE FROM employees WHERE id = ?";
     private static final String GET_ALL_EMPLOYEES = "SELECT * FROM employees";
     private static final String GET_ALL_EMPLOYEES_BY_DEPARTMENT = "SELECT * FROM employees WHERE departmentId = ?";
@@ -27,6 +28,29 @@ public class EmployeesService implements InterfaceEmployeesService {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 employee = new Employee(id,
+                        resultSet.getString("name"),
+                        resultSet.getDate("startDate").toLocalDate(),
+                        resultSet.getDouble("salary"),
+                        resultSet.getInt("departmentId"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return employee;
+    }
+
+    @Override
+    public Employee getEmployeeByName(String name) {
+        Employee employee = null;
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_EMPLOYEE_BY_NAME)) {
+
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                employee = new Employee(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getDate("startDate").toLocalDate(),
                         resultSet.getDouble("salary"),

@@ -6,7 +6,7 @@
 <body class="w3-light-grey">
 <div class="w3-container w3-light-blue w3-opacity">
     <div>
-        <h1 class="w3-center w3-text-indigo">WebApp_010_Departments</h1>
+        <h1 class="w3-center w3-text-indigo">Departments</h1>
     </div>
 </div>
 

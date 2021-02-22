@@ -35,6 +35,12 @@ public class EmployeesService implements InterfaceEmployeesService {
         return index < 0 ? null : employees.get(index).makeCopy();
     }
 
+    // Затычка - inMemory is not used
+    @Override
+    public Employee getEmployeeByName(String name) {
+        return null;
+    }
+
     @Override
     public String deleteEmployeeById(int id) {
         int index = getIndexById(id);

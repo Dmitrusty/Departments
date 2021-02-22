@@ -57,11 +57,12 @@ public class EditEmployeeController implements InterfaceController {
                     LocalDate newStartDate = LocalDate.parse(request.getParameter("newStartDate"));
 
                     if (newName != null && newSalary != 0 && newStartDate != null) {
+                        request.setAttribute("oldName", employee.getName());
+                        request.setAttribute("employee", employee);
                         employee.setName(newName);
                         employee.setDepartmentID(newDepartment.getId());
                         employee.setSalary(newSalary);
                         employee.setStartDate(newStartDate);
-                        request.setAttribute("employee", employee);
                         List<ConstraintViolation> violations = validator.validate(employee);
 
                         if (!violations.isEmpty()) {
@@ -80,6 +81,7 @@ public class EditEmployeeController implements InterfaceController {
                                 request.setAttribute("infoMessage", "Сохранены данные сотрудника " + newName);
                                 request.setAttribute("departmentName", newDepartmentName);
                                 request.removeAttribute("employee");
+                                request.removeAttribute("oldName");
                             }
                         }
                         violations.clear();
@@ -88,6 +90,7 @@ public class EditEmployeeController implements InterfaceController {
 
                 case "GET":
                 default:
+                    request.setAttribute("oldName", employee.getName());
                     String departmentName = request.getParameter("departmentName");
                     if (departmentName != null) {
                         Department department = departmentsService.getDepartmentByName(departmentName);
