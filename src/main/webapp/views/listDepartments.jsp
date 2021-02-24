@@ -21,6 +21,11 @@
                         <form method="get" action="/main/departments/edit">
                             <td>${i.getName()}</td>
                             <td style="float: right">
+                                <button class="w3-btn w3-round-large w3-hover-pale-green w3-opacity w3-border w3-border-black w3-padding-small"
+                                        type="submit" formaction="/main/employees/list">Сотрудники
+                                </button>
+                            </td>
+                            <td style="float: right">
                                 <button class="w3-btn w3-round-large w3-hover-red w3-opacity w3-border w3-border-black w3-padding-small"
                                         type="submit" formaction="/main/departments/delete">Удалить
                                 </button>
@@ -30,7 +35,7 @@
                                         type="submit" formaction="/main/departments/edit">Редактировать
                                 </button>
                             </td>
-                            <input type="hidden" name="departmentID" value="${i.getId()}">
+                            <input type="hidden" name="departmentName" value="${i.getName()}">
                         </form>
                     </tr>
                 </c:forEach>

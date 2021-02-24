@@ -13,6 +13,7 @@ public class URIDispatcher {
     public URIDispatcher() {
         controllersMap = new HashMap<>();
         controllersMap.put("/main/login", new LoginController());
+
         controllersMap.put("/main/departments/list", new ListDepartmentsController());
         controllersMap.put("/main/departments/add", new AddDepartmentController());
         controllersMap.put("/main/departments/edit", new EditDepartmentController());

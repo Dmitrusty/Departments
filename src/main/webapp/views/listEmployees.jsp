@@ -1,4 +1,4 @@
-<%--@elvariable id="employeesList" type="myapp.service.implementations.EmployeesService"--%>
+<%--@elvariable id="employeesList" type="myapp.service.implementation.inMemory.EmployeesService"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -10,14 +10,18 @@
     <%@ include file="/fragments/infoPanel.jsp" %>
     <div class=" w3-card-4">
         <div class="w3-container w3-pale-green w3-padding">
-            <h3>Список сотрудников</h3>
+            <c:if test="${departmentName != null}">
+                <h3>Список сотрудников отдела ${departmentName}:</h3>
+            </c:if>
+            <c:if test="${departmentName == null}">
+                <h3>Не указан отдел для вывода списка его сотрудников.</h3>
+            </c:if>
         </div>
         <c:if test="${!empty employeesList}">
             <table class="w3-table-all">
                 <thead>
                 <tr class="w3-light-gray">
                     <th>Сотрудник</th>
-                    <th>Отдел</th>
                     <th>Начало работы</th>
                     <th>Зарплата</th>
                     <th colspan="2"></th>
@@ -28,7 +32,6 @@
                     <tr class="w3-hover-sand">
                         <form method="get" action="/main/employees/edit">
                             <td>${i.getName()}</td>
-                            <td>${i.getDepartmentName()}</td>
                             <td>${i.getStartDate()}</td>
                             <td>${i.getSalary()}</td>
                             <td style="float: right">
@@ -42,6 +45,7 @@
                                 </button>
                             </td>
                             <input type="hidden" name="employeeID" value="${i.getId()}">
+                            <input type="hidden" name="departmentName" value="${departmentName}">
                         </form>
                     </tr>
                 </c:forEach>
@@ -50,7 +54,7 @@
             </table>
         </c:if>
         <c:if test="${empty employeesList}">
-            <p>Список сотрудников пуст</p>
+            <p class="w3-padding">Список сотрудников пуст</p>
         </c:if>
     </div>
 </div>

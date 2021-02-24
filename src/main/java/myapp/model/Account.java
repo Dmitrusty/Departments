@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Account {
-    private String id = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
     private String login;
     private String password;
     private String accessLevel;

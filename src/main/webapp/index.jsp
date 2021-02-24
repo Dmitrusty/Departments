@@ -1,16 +1,18 @@
 <%--@elvariable id="user" type="myapp.model.Account"--%>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <%@ include file="/fragments/pageHead.jsp" %>
 <body class="w3-light-grey">
 <div class="w3-container w3-light-blue w3-opacity">
     <div>
-        <h1 class="w3-center w3-text-indigo">WebApp_010_Departments</h1>
+        <h1 class="w3-center w3-text-indigo">Departments</h1>
     </div>
 </div>
 
 <div class="mycard-cc w3-card-4 w3-round padding-bottom">
+    <%@ include file="/fragments/infoPanel.jsp" %>
+
     <div class="w3-container w3-blue">
         <h2>Введите логин и пароль:</h2>
     </div>
@@ -33,7 +35,7 @@
                 </table>
             </div>
             <p class="w3-left-align small"><sup>*</sup>Поля, отмеченные звездочкой, обязательны к заполнению</p>
-            <input type="submit" class="w3-left" value="Авторизация">
+            <input type="submit" class="w3-left w3-hover-blue" value="Авторизация">
         </form>
     </div>
 </div>

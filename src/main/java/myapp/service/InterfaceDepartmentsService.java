@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface InterfaceDepartmentsService {
 
-    Department getDepartmentById(String id);
+    Department getDepartmentByName(String name);
 
-    String deleteDepartmentById(String id);
+    String deleteDepartmentById(int id);
 
     List<Department> getAllDepartments();
 
