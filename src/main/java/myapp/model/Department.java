@@ -2,10 +2,18 @@ package myapp.model;
 
 import myapp.utils.validator.constraints.department.CheckUniqueName;
 import net.sf.oval.constraint.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "departments" )
 public class Department {
 
-    private final int id;
+    private int id;
 
     @NotNull(message = "Название должно быть задано.")
     @NotEmpty(message = "Пожалуйста, введите название.")
@@ -13,6 +21,9 @@ public class Department {
     @CheckWith(value = CheckUniqueName.class, message = "Это имя уже занято.")
     @MatchPattern(pattern = "[\\w ]+", message = "Допустимы только буквы, цифры и _")
     private String name;
+
+    public Department() {
+    }
 
     public Department(String name) {
         this.id = 0;
@@ -36,8 +47,15 @@ public class Department {
         this.name = name;
     }
 
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

@@ -2,12 +2,15 @@ package myapp.model;
 
 import myapp.utils.validator.constraints.employee.CheckUniqueName;
 import net.sf.oval.constraint.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-
+@Entity
+@Table( name = "employees" )
 public class Employee {
 
-    private final int id;
+    private int id;
 
     @NotNull(message = "Название должно быть задано.")
     @NotEmpty(message = "Пожалуйста, введите название.")
@@ -28,6 +31,9 @@ public class Employee {
     private double salary;
 
     private int departmentID;
+
+    public Employee() {
+    }
 
     public Employee(int id, String name, LocalDate startDate, double salary, int departmentID) {
         this.id = id;
@@ -61,8 +67,15 @@ public class Employee {
         return new Employee(this);
     }
 
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -73,6 +86,7 @@ public class Employee {
         this.name = name;
     }
 
+    @Temporal(TemporalType.DATE)
     public LocalDate getStartDate() {
         return startDate;
     }
