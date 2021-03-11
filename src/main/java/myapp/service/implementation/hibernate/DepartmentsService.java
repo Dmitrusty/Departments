@@ -6,6 +6,7 @@ import myapp.utils.DatabaseConnection;
 import myapp.utils.HibernateSetup;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,14 +25,21 @@ public class DepartmentsService implements InterfaceDepartmentsService {
 
     @Override
     public Department getDepartmentByName(String name) {
+        Department result = null;
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        Department result = entityManager.createQuery("select p" +
-                "from departments p " +
-                "where name = :name", Department.class)
-                .setParameter("name", name)
-                .getSingleResult();
+        try {
+            result = entityManager.createQuery("select d " +
+                    " from Department d " +
+                    " where d.name = :name ", Department.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+
+        } catch (NoResultException e) {
+            // e.printStackTrace();
+            logger.log(Level.WARNING, "get Department By Name: no department with required name " + name);
+        }
 
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -42,19 +50,42 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     @Override
     public String deleteDepartmentById(int id) {
         String name = null;
+        String bufferName = null;
+        int deletedDepartments = 0;
 
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        Department department = entityManager.find(Department.class, id);
-        if (department != null) {
-            entityManager.remove(department);
-            name = department.getName();
-            entityManager.getTransaction().commit();
-        } else {
-            logger.log(Level.INFO, "Deleting department by id: no department with required id.");
+        try {
+            bufferName = (String) entityManager.createQuery("select d.name from Department d where d.id = :id")
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.log(Level.WARNING, "delete Department By Id: no department with required id ");
         }
 
+        if (bufferName != null){
+            try {
+                deletedDepartments = entityManager.createQuery(
+                        "delete from Department d where d.id = :id")
+                        .setParameter("id", id)
+                        .executeUpdate();
+
+                switch (deletedDepartments){
+                    case 1:
+                        name = bufferName;
+                        break;
+                    default:
+                        logger.log(Level.SEVERE, "delete Department By Id: unexpected result of deleting department " + bufferName + " with required id ");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.log(Level.SEVERE, "delete Department By Id: error deleting department " + bufferName + " with required id ");
+            }
+        }
+
+        entityManager.getTransaction().commit();
         entityManager.close();
         return name;
     }
@@ -64,7 +95,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        List<Department> result = entityManager.createQuery("from Department", Department.class).getResultList();
+        List<Department> result = entityManager.createQuery("select d from Department d", Department.class).getResultList();
 
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -79,16 +110,24 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        Department dbDepartment = entityManager.find(Department.class, newDepartment.getId());
-        if (dbDepartment != null){
-            entityManager.merge(newDepartment);
-            result = true;
-            entityManager.getTransaction().commit();
-        } else {
-            logger.log(Level.INFO, "Updating department by id: no department with required id.");
+        int updatedDepartments = entityManager.createQuery(
+                "update Department d set d.name = :newName where d.id = :id")
+                .setParameter("id", newDepartment.getId())
+                .setParameter("newName", newDepartment.getName())
+                .executeUpdate();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        switch (updatedDepartments){
+            case 1:
+                result = true;
+                break;
+            default:
+                logger.log(Level.WARNING, "Updating department by id: " + updatedDepartments +
+                        " departments with required id was updated.");
         }
 
-        entityManager.close();
         return result;
     }
 
@@ -98,10 +137,9 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         entityManager.getTransaction().begin();
 
         entityManager.persist(department);
-
         entityManager.getTransaction().commit();
+
         entityManager.close();
         return true;
-        // todo return false
     }
 }

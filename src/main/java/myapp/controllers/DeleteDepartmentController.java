@@ -2,7 +2,8 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.service.implementation.hibernate.DepartmentsService;
+//import myapp.service.implementation.jdbc.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

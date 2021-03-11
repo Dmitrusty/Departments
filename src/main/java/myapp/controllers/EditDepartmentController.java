@@ -2,7 +2,8 @@ package myapp.controllers;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.service.implementation.hibernate.DepartmentsService;
+//import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
 
@@ -23,6 +24,8 @@ public class EditDepartmentController implements InterfaceController {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean goToListDepartments = false;
+
         String departmentName = request.getParameter("departmentName");
         Department department = departmentsService.getDepartmentByName(departmentName);
 
@@ -43,7 +46,7 @@ public class EditDepartmentController implements InterfaceController {
                         } else {
                             if (departmentsService.updateExistingDepartment(department)) {
                                 request.setAttribute("infoMessage", "Сохранены данные отдела: " + newName);
-                                request.setAttribute("departmentName", newName);
+                                goToListDepartments = true;
                             }
                         }
                         violations.clear();
@@ -53,6 +56,10 @@ public class EditDepartmentController implements InterfaceController {
             }
         }
 
-        request.getRequestDispatcher("/views/editDepartment.jsp").forward(request, response);
+        if (goToListDepartments){
+            request.getRequestDispatcher("/main/departments/list").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/views/editDepartment.jsp").forward(request, response);
+        }
     }
 }

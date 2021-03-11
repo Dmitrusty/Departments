@@ -3,7 +3,8 @@ package myapp.controllers;
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
-import myapp.service.implementation.jdbc.DepartmentsService;
+//import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.service.implementation.hibernate.DepartmentsService;
 import myapp.service.implementation.jdbc.EmployeesService;
 
 import javax.servlet.ServletException;

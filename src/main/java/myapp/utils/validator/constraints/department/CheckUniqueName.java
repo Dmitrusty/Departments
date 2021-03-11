@@ -1,7 +1,8 @@
 package myapp.utils.validator.constraints.department;
 
 import myapp.model.Department;
-import myapp.service.implementation.jdbc.DepartmentsService;
+import myapp.service.implementation.hibernate.DepartmentsService;
+//import myapp.service.implementation.jdbc.DepartmentsService;
 import net.sf.oval.constraint.CheckWithCheck;
 
 public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
