@@ -6,7 +6,7 @@ import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
 import myapp.service.implementation.hibernate.DepartmentsService;
 //import myapp.service.implementation.jdbc.DepartmentsService;
-import myapp.service.implementation.jdbc.EmployeesService;
+import myapp.service.implementation.hibernate.EmployeesService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
 

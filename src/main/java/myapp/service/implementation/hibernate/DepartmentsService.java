@@ -2,16 +2,10 @@ package myapp.service.implementation.hibernate;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.utils.DatabaseConnection;
 import myapp.utils.HibernateSetup;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +31,6 @@ public class DepartmentsService implements InterfaceDepartmentsService {
                     .getSingleResult();
 
         } catch (NoResultException e) {
-            // e.printStackTrace();
             logger.log(Level.WARNING, "get Department By Name: no department with required name " + name);
         }
 
@@ -51,7 +44,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     public String deleteDepartmentById(int id) {
         String name = null;
         String bufferName = null;
-        int deletedDepartments = 0;
+        int deletedDepartments;
 
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
@@ -65,19 +58,17 @@ public class DepartmentsService implements InterfaceDepartmentsService {
             logger.log(Level.WARNING, "delete Department By Id: no department with required id ");
         }
 
-        if (bufferName != null){
+        if (bufferName != null) {
             try {
                 deletedDepartments = entityManager.createQuery(
                         "delete from Department d where d.id = :id")
                         .setParameter("id", id)
                         .executeUpdate();
 
-                switch (deletedDepartments){
-                    case 1:
-                        name = bufferName;
-                        break;
-                    default:
-                        logger.log(Level.SEVERE, "delete Department By Id: unexpected result of deleting department " + bufferName + " with required id ");
+                if (deletedDepartments == 1) {
+                    name = bufferName;
+                } else {
+                    logger.log(Level.SEVERE, "delete Department By Id: unexpected result of deleting department " + bufferName + " with required id ");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -119,13 +110,11 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         entityManager.getTransaction().commit();
         entityManager.close();
 
-        switch (updatedDepartments){
-            case 1:
-                result = true;
-                break;
-            default:
-                logger.log(Level.WARNING, "Updating department by id: " + updatedDepartments +
-                        " departments with required id was updated.");
+        if (updatedDepartments == 1) {
+            result = true;
+        } else {
+            logger.log(Level.WARNING, "Updating department by id: " + updatedDepartments +
+                    " departments with required id was updated.");
         }
 
         return result;
@@ -137,8 +126,8 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         entityManager.getTransaction().begin();
 
         entityManager.persist(department);
-        entityManager.getTransaction().commit();
 
+        entityManager.getTransaction().commit();
         entityManager.close();
         return true;
     }

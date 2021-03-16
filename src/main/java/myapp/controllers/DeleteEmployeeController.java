@@ -1,7 +1,7 @@
 package myapp.controllers;
 
 import myapp.service.InterfaceEmployeesService;
-import myapp.service.implementation.jdbc.EmployeesService;
+import myapp.service.implementation.hibernate.EmployeesService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

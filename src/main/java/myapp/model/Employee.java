@@ -16,7 +16,8 @@ public class Employee {
     @NotEmpty(message = "Пожалуйста, введите название.")
     @Length(min = 2, max = 35, message = "Длина имени 2...35 символов.")
     @CheckWith(value = CheckUniqueName.class, message = "Это имя уже занято.")
-    @MatchPattern(pattern = "[a-zA-Z ]+", message = "Допустимы только буквы и _")
+    @MatchPattern(pattern = "[a-zA-Z_ А-Яа-я]+", message = "Допустимы только буквы и _")
+    // todo правильно ввел контроль русских букв и _ ?
     private String name;
 
     @NotNull(message = "Дата начала работы должна быть задана.")

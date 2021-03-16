@@ -4,22 +4,24 @@ import myapp.utils.validator.constraints.department.CheckUniqueName;
 import net.sf.oval.constraint.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table( name = "departments" )
 public class Department {
 
+    @Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Department", orphanRemoval = true)
     private int id;
 
     @NotNull(message = "Название должно быть задано.")
     @NotEmpty(message = "Пожалуйста, введите название.")
     @Length(min = 2, max = 35, message = "Название 2...35 символов.")
     @CheckWith(value = CheckUniqueName.class, message = "Это имя уже занято.")
-    @MatchPattern(pattern = "[\\w ]+", message = "Допустимы только буквы, цифры и _")
+    // todo правильно ввел контроль русских букв и _ ?
+    @MatchPattern(pattern = "[\\w_ А-Яа-я]+", message = "Допустимы только буквы, цифры и _")
     private String name;
 
     public Department() {
@@ -47,9 +49,6 @@ public class Department {
         this.name = name;
     }
 
-    @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
     public int getId() {
         return id;
     }

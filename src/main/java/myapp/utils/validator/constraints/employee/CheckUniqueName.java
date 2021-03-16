@@ -1,7 +1,7 @@
 package myapp.utils.validator.constraints.employee;
 
 import myapp.model.Employee;
-import myapp.service.implementation.jdbc.EmployeesService;
+import myapp.service.implementation.hibernate.EmployeesService;
 import net.sf.oval.constraint.CheckWithCheck;
 
 public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
