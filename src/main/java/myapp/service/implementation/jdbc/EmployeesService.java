@@ -17,7 +17,7 @@ public class EmployeesService implements InterfaceEmployeesService {
     private static final String ADD_EMPLOYEE_BY_ID = "INSERT INTO employees (name, startDate, salary, departmentId) VALUES (?,?,?,?)";
 
     @Override
-    public Employee getEmployeeById(int id) {
+    public Employee getEmployeeById(Long id) {
         Employee employee = null;
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -88,7 +88,7 @@ public class EmployeesService implements InterfaceEmployeesService {
     }
 
     @Override
-    public List<Employee> getEmployeesByDepartmentId(int departmentId) {
+    public List<Employee> getEmployeesByDepartmentId(Long departmentId) {
         List<Employee> result = new ArrayList<>();
         Employee employee;
 

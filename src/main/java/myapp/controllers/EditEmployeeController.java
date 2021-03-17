@@ -32,7 +32,7 @@ public class EditEmployeeController implements InterfaceController {
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean badFieldsExists = false;
 
-        int employeeID = Integer.parseInt(request.getParameter("employeeID"));
+        Long employeeID = Integer.parseInt(request.getParameter("employeeID"));
         Employee employee = employeesService.getEmployeeById(employeeID);
 
         if (employee != null) {

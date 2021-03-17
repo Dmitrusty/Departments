@@ -23,6 +23,8 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
+
+
         try {
             result = entityManager.createQuery("select d " +
                     " from Department d " +
@@ -41,7 +43,7 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     }
 
     @Override
-    public String deleteDepartmentById(int id) {
+    public String deleteDepartmentById(Long id) {
         String name = null;
         String bufferName = null;
         int deletedDepartments;
@@ -87,7 +89,6 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         entityManager.getTransaction().begin();
 
         List<Department> result = entityManager.createQuery("select d from Department d", Department.class).getResultList();
-
         entityManager.getTransaction().commit();
         entityManager.close();
 

@@ -8,7 +8,7 @@ public interface InterfaceDepartmentsService {
 
     Department getDepartmentByName(String name);
 
-    String deleteDepartmentById(int id);
+    String deleteDepartmentById(Long id);
 
     List<Department> getAllDepartments();
 

@@ -1,5 +1,6 @@
 package myapp.controllers;
 
+import myapp.model.Employee;
 import myapp.service.InterfaceEmployeesService;
 import myapp.service.implementation.hibernate.EmployeesService;
 
@@ -28,5 +29,12 @@ public class DeleteEmployeeController implements InterfaceController {
         }
 
         request.getRequestDispatcher("/main/employees/list").forward(request, response);
+    }
+
+    void handle(long id){
+        Employee employee = employeesService.getEmployeeById(id);
+        if(!employeesService.deleteEmployee(employee)) {
+            System.out.println("Не получилось удалить сотрудника " + employee.getName());
+        }
     }
 }

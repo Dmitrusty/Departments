@@ -2,7 +2,8 @@ package myapp.model;
 
 import myapp.utils.validator.constraints.employee.CheckUniqueName;
 import net.sf.oval.constraint.*;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,14 +11,15 @@ import java.time.LocalDate;
 @Table( name = "employees" )
 public class Employee {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @NotNull(message = "Название должно быть задано.")
     @NotEmpty(message = "Пожалуйста, введите название.")
     @Length(min = 2, max = 35, message = "Длина имени 2...35 символов.")
     @CheckWith(value = CheckUniqueName.class, message = "Это имя уже занято.")
     @MatchPattern(pattern = "[a-zA-Z_ А-Яа-я]+", message = "Допустимы только буквы и _")
-    // todo правильно ввел контроль русских букв и _ ?
     private String name;
 
     @NotNull(message = "Дата начала работы должна быть задана.")
@@ -31,25 +33,27 @@ public class Employee {
     @Max(value = 100000.0, message = "Не может быть больше 100000")
     private double salary;
 
-    private int departmentID;
+    @ManyToOne()
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Department workingDepartment;
 
     public Employee() {
     }
 
-    public Employee(int id, String name, LocalDate startDate, double salary, int departmentID) {
+    public Employee(Long id, String name, LocalDate startDate, double salary, Department workingDepartment) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.salary = salary;
-        this.departmentID = departmentID;
+        this.workingDepartment = workingDepartment;
     }
 
-    public Employee(String name, LocalDate startDate, double salary, int departmentID) {
-        this.id = 0;
+    public Employee(String name, LocalDate startDate, double salary, Department workingDepartment) {
+        this.id = 0L;
         this.name = name;
         this.startDate = startDate;
         this.salary = salary;
-        this.departmentID = departmentID;
+        this.workingDepartment = workingDepartment;
     }
 
     private Employee(Employee employee) {
@@ -57,25 +61,25 @@ public class Employee {
         this.name = employee.name;
         this.startDate = employee.startDate;
         this.salary = employee.salary;
-        this.departmentID = employee.departmentID;
+        this.workingDepartment = employee.workingDepartment;
     }
 
+    // TODO delete it
+    @Deprecated
     private boolean isValidDate(LocalDate date) {
         return date.isBefore(LocalDate.now().plusDays(1)) && date.isAfter(LocalDate.of(2000, 01, 01));
     }
-
+    // TODO delete it
+    @Deprecated
     public Employee makeCopy() {
         return new Employee(this);
     }
 
-    @Id
-    @GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,7 +91,6 @@ public class Employee {
         this.name = name;
     }
 
-   // @Temporal(TemporalType.DATE)
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -104,12 +107,12 @@ public class Employee {
         this.salary = salary;
     }
 
-    public int getDepartmentID() {
-        return departmentID;
+    public Department getDepartment() {
+        return workingDepartment;
     }
 
-    public void setDepartmentID(int departmentID) {
-        this.departmentID = departmentID;
+    public void setDepartment(Department workingDepartment) {
+        this.workingDepartment = workingDepartment;
     }
 
 }

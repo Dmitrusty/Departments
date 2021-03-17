@@ -1,10 +1,8 @@
 package myapp.service.implementation.hibernate;
 
-import myapp.model.Department;
 import myapp.model.Employee;
 import myapp.service.InterfaceEmployeesService;
 import myapp.utils.HibernateSetup;
-import org.hibernate.type.StringRepresentableType;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,16 +18,18 @@ public class EmployeesService implements InterfaceEmployeesService {
 
     @Override
     // todo проверить
-    public Employee getEmployeeById(int id) {
+    public Employee getEmployeeById(Long id) {
         Employee result = null;
 
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
         try {
+            // todo
             result = entityManager.createQuery("select e from Employee e where e.id = :id", Employee.class)
                     .setParameter("id", id)
                     .getSingleResult();
+            result = entityManager.find(Employee.class, id);
         } catch (Exception e) {
             // todo как применять сообщения от Exception?
             e.getMessage();
@@ -68,6 +68,8 @@ public class EmployeesService implements InterfaceEmployeesService {
 
     @Override
     // todo проверить
+    // todo void / boolean
+    // void deleteEmployee(Employee employee) {}
     public String deleteEmployeeById(int id) {
         String name = null;
         String bufferName = null;
@@ -89,6 +91,7 @@ public class EmployeesService implements InterfaceEmployeesService {
 
         if (bufferName != null) {
             try {
+                entityManager.remove();
                 deletedEmployees = entityManager.createQuery("delete from Employee e where e.id = :id")
                         .setParameter("id", id)
                         .executeUpdate();
@@ -111,7 +114,7 @@ public class EmployeesService implements InterfaceEmployeesService {
 
     @Override
     // todo проверить
-    public List<Employee> getEmployeesByDepartmentId(int departmentID) {
+    public List<Employee> getEmployeesByDepartmentId(Long departmentID) {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
@@ -152,3 +155,4 @@ public class EmployeesService implements InterfaceEmployeesService {
         return true;
     }
 }
+// todo ID camel case проверить
