@@ -23,8 +23,6 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-
-
         try {
             result = entityManager.createQuery("select d " +
                     " from Department d " +
@@ -43,44 +41,15 @@ public class DepartmentsService implements InterfaceDepartmentsService {
     }
 
     @Override
-    public String deleteDepartmentById(Long id) {
-        String name = null;
-        String bufferName = null;
-        int deletedDepartments;
-
+    public void deleteDepartmentById(Long id) {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        try {
-            bufferName = (String) entityManager.createQuery("select d.name from Department d where d.id = :id")
-                    .setParameter("id", id)
-                    .getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.log(Level.WARNING, "delete Department By Id: no department with required id ");
-        }
-
-        if (bufferName != null) {
-            try {
-                deletedDepartments = entityManager.createQuery(
-                        "delete from Department d where d.id = :id")
-                        .setParameter("id", id)
-                        .executeUpdate();
-
-                if (deletedDepartments == 1) {
-                    name = bufferName;
-                } else {
-                    logger.log(Level.SEVERE, "delete Department By Id: unexpected result of deleting department " + bufferName + " with required id ");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                logger.log(Level.SEVERE, "delete Department By Id: error deleting department " + bufferName + " with required id ");
-            }
-        }
+        Department department = entityManager.find(Department.class, id);
+        entityManager.remove(department);
 
         entityManager.getTransaction().commit();
         entityManager.close();
-        return name;
     }
 
     @Override
@@ -89,40 +58,26 @@ public class DepartmentsService implements InterfaceDepartmentsService {
         entityManager.getTransaction().begin();
 
         List<Department> result = entityManager.createQuery("select d from Department d", Department.class).getResultList();
+
         entityManager.getTransaction().commit();
         entityManager.close();
-
         return result;
     }
 
     @Override
-    public boolean updateExistingDepartment(Department newDepartment) {
-        boolean result = false;
+    public void updateExistingDepartment(Department newDepartment) {
 
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
-        int updatedDepartments = entityManager.createQuery(
-                "update Department d set d.name = :newName where d.id = :id")
-                .setParameter("id", newDepartment.getId())
-                .setParameter("newName", newDepartment.getName())
-                .executeUpdate();
+        entityManager.merge(newDepartment);
 
         entityManager.getTransaction().commit();
         entityManager.close();
-
-        if (updatedDepartments == 1) {
-            result = true;
-        } else {
-            logger.log(Level.WARNING, "Updating department by id: " + updatedDepartments +
-                    " departments with required id was updated.");
-        }
-
-        return result;
     }
 
     @Override
-    public boolean addDepartment(Department department) {
+    public void addDepartment(Department department) {
         EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
         entityManager.getTransaction().begin();
 
@@ -130,6 +85,5 @@ public class DepartmentsService implements InterfaceDepartmentsService {
 
         entityManager.getTransaction().commit();
         entityManager.close();
-        return true;
     }
 }

@@ -5,7 +5,6 @@ import myapp.model.Employee;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
 import myapp.service.implementation.hibernate.DepartmentsService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.service.implementation.hibernate.EmployeesService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
@@ -53,7 +52,7 @@ public class AddEmployeeController implements InterfaceController {
                 LocalDate newStartDate = LocalDate.parse(request.getParameter("newStartDate"));
 
                 if (newName != null && newSalary != 0 && newStartDate != null) {
-                    Employee newEmployee = new Employee(newName, newStartDate, newSalary, newDepartment.getId());
+                    Employee newEmployee = new Employee(newName, newStartDate, newSalary, newDepartment);
                     request.setAttribute("employee", newEmployee);
                     List<ConstraintViolation> violations = validator.validate(newEmployee);
 
@@ -68,10 +67,9 @@ public class AddEmployeeController implements InterfaceController {
                     if (badFieldsExists) {
                         request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                     } else {
-                        if (employeesService.addEmployee(newEmployee)) {
-                            request.setAttribute("infoMessage", "Добавлен сотрудник: " + newName);
-                            request.removeAttribute("employee");
-                        }
+                        employeesService.addEmployee(newEmployee);
+                        request.setAttribute("infoMessage", "Добавлен сотрудник: " + newName);
+                        request.removeAttribute("employee");
                     }
                     violations.clear();
                 }

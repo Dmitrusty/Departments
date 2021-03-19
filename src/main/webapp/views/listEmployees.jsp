@@ -30,10 +30,10 @@
                 <tbody>
                 <c:forEach items="${employeesList}" var="i">
                     <tr class="w3-hover-sand">
-                        <form method="get" action="/main/employees/edit">
-                            <td>${i.getName()}</td>
-                            <td>${i.getStartDate()}</td>
-                            <td>${i.getSalary()}</td>
+                        <form method="get" action="<c:url value="/main/employees/edit"/>">
+                            <td>${i.name}</td>
+                            <td>${i.startDate}</td>
+                            <td>${i.salary}</td>
                             <td style="float: right">
                                 <button class="w3-btn w3-round-large w3-hover-red w3-opacity w3-border w3-border-black w3-padding-small"
                                         type="submit" formaction="/main/employees/delete">Удалить
@@ -44,7 +44,7 @@
                                         type="submit" formaction="/main/employees/edit">Редактировать
                                 </button>
                             </td>
-                            <input type="hidden" name="employeeID" value="${i.getId()}">
+                            <input type="hidden" name="employeeId" value="${i.id}">
                             <input type="hidden" name="departmentName" value="${departmentName}">
                         </form>
                     </tr>

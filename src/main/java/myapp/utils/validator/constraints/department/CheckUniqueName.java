@@ -2,7 +2,6 @@ package myapp.utils.validator.constraints.department;
 
 import myapp.model.Department;
 import myapp.service.implementation.hibernate.DepartmentsService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 import net.sf.oval.constraint.CheckWithCheck;
 
 public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
@@ -24,7 +23,7 @@ public class CheckUniqueName implements CheckWithCheck.SimpleCheck {
         }
 
         // Новое имя отдела уже используется
-        if (departmentFromDB.getId() == department.getId()) {
+        if (departmentFromDB.getId().equals(department.getId())) {
             // Отдел один и тот же - идет коррекция
             // Разрешаем если имя не меняется, и наоборот
             return departmentFromDB.getName().equals(newName);

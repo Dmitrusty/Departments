@@ -3,7 +3,6 @@ package myapp.controllers;
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.implementation.hibernate.DepartmentsService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
 
@@ -44,10 +43,10 @@ public class EditDepartmentController implements InterfaceController {
                             request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                             request.setAttribute("nameBadMessage", validator.getMessage("name", violations));
                         } else {
-                            if (departmentsService.updateExistingDepartment(department)) {
-                                request.setAttribute("infoMessage", "Сохранены данные отдела: " + newName);
-                                goToListDepartments = true;
-                            }
+                            departmentsService.updateExistingDepartment(department);
+                            request.setAttribute("infoMessage", "Сохранены данные отдела: " + newName);
+                            goToListDepartments = true;
+
                         }
                         violations.clear();
                     }

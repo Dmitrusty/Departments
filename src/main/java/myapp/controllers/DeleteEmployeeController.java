@@ -18,23 +18,17 @@ public class DeleteEmployeeController implements InterfaceController {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int employeeID = Integer.parseInt(request.getParameter("employeeID"));
-
-        if (employeeID > 0) {
-            String name = employeesService.deleteEmployeeById(employeeID);
-            if (name != null) {
-                request.setAttribute("infoMessage", "Был удален сотрудник: " + name);
-                request.setAttribute("departmentName", request.getParameter("departmentName"));
-            }
-        }
-
-        request.getRequestDispatcher("/main/employees/list").forward(request, response);
-    }
-
-    void handle(long id){
+        Long id = Long.parseLong(request.getParameter("employeeId"));
         Employee employee = employeesService.getEmployeeById(id);
-        if(!employeesService.deleteEmployee(employee)) {
-            System.out.println("Не получилось удалить сотрудника " + employee.getName());
+
+        if (id > 0 && employee != null) {
+            employeesService.deleteEmployeeById(id);
+            request.setAttribute("infoMessage", "Был удален сотрудник: " + employee.getName());
+        } else {
+            request.setAttribute("infoMessage", "Не найден удаляемый сотрудник.")   ;
         }
+
+        request.setAttribute("departmentName", request.getParameter("departmentName"));
+        request.getRequestDispatcher("/main/employees/list").forward(request, response);
     }
 }

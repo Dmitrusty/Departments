@@ -8,11 +8,11 @@ public interface InterfaceDepartmentsService {
 
     Department getDepartmentByName(String name);
 
-    String deleteDepartmentById(Long id);
+    void deleteDepartmentById(Long id);
 
     List<Department> getAllDepartments();
 
-    boolean updateExistingDepartment(Department newDepartment);
+    void updateExistingDepartment(Department newDepartment);
 
-    boolean addDepartment(Department department);
+    void addDepartment(Department department);
 }

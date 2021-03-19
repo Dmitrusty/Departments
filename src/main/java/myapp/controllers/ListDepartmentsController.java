@@ -1,7 +1,6 @@
 package myapp.controllers;
 
 import myapp.service.InterfaceDepartmentsService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.service.implementation.hibernate.DepartmentsService;
 
 import javax.servlet.ServletException;

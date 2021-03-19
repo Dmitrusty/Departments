@@ -5,7 +5,6 @@ import myapp.model.Employee;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
 import myapp.service.implementation.hibernate.DepartmentsService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.service.implementation.hibernate.EmployeesService;
 import myapp.utils.validator.OvalValidator;
 import net.sf.oval.ConstraintViolation;
@@ -32,7 +31,7 @@ public class EditEmployeeController implements InterfaceController {
     public void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean badFieldsExists = false;
 
-        Long employeeID = Integer.parseInt(request.getParameter("employeeID"));
+        Long employeeID = Long.parseLong(request.getParameter("employeeId"));
         Employee employee = employeesService.getEmployeeById(employeeID);
 
         if (employee != null) {
@@ -61,7 +60,7 @@ public class EditEmployeeController implements InterfaceController {
                         request.setAttribute("oldName", employee.getName());
                         request.setAttribute("employee", employee);
                         employee.setName(newName);
-                        employee.setDepartmentID(newDepartment.getId());
+                        employee.setDepartment(newDepartment);
                         employee.setSalary(newSalary);
                         employee.setStartDate(newStartDate);
                         List<ConstraintViolation> violations = validator.validate(employee);
@@ -76,12 +75,11 @@ public class EditEmployeeController implements InterfaceController {
                         if (badFieldsExists) {
                             request.setAttribute("infoMessage", "Пожалуйста, введите правильные данные:");
                         } else {
-                            if (employeesService.updateExistingEmployee(employee)) {
-                                request.setAttribute("infoMessage", "Сохранены данные сотрудника " + newName);
-                                request.setAttribute("departmentName", newDepartmentName);
-                                request.removeAttribute("employee");
-                                request.removeAttribute("oldName");
-                            }
+                            employeesService.updateExistingEmployee(employee);
+                            request.setAttribute("infoMessage", "Сохранены данные сотрудника " + newName);
+                            request.setAttribute("departmentName", newDepartmentName);
+                            request.removeAttribute("employee");
+                            request.removeAttribute("oldName");
                         }
                         violations.clear();
                     }

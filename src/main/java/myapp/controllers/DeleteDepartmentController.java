@@ -3,7 +3,6 @@ package myapp.controllers;
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.implementation.hibernate.DepartmentsService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +22,9 @@ public class DeleteDepartmentController implements InterfaceController {
         Department department = departmentsService.getDepartmentByName(departmentName);
 
         if (department != null) {
-            String name = departmentsService.deleteDepartmentById(department.getId());
-            if (name != null) {
-                request.setAttribute("infoMessage", "Был удален отдел: " + name);
-            } else {
-                request.setAttribute("infoMessage", "Нельзя удалять отдел " + departmentName + ", пока в нем числятся сотрудники.");
-            }
+            departmentsService.deleteDepartmentById(department.getId());
+            request.setAttribute("infoMessage", "Был удален отдел: " + department.getName());
+
         } else {
             request.setAttribute("infoMessage", "для удаления не найден отдел: " + departmentName);
         }

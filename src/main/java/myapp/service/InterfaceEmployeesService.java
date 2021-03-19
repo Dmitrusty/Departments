@@ -2,20 +2,16 @@ package myapp.service;
 
 import myapp.model.Employee;
 
-import java.util.List;
-
 public interface InterfaceEmployeesService {
 
      Employee getEmployeeById(Long id);
 
      Employee getEmployeeByName(String name);
 
-     String deleteEmployeeById(int id);
+     void deleteEmployeeById(Long id);
 
-     List<Employee> getEmployeesByDepartmentId(Long departmentId);
+     void updateExistingEmployee(Employee newEmployee);
 
-     boolean updateExistingEmployee(Employee newEmployee);
-
-     boolean addEmployee(Employee employee);
+     void addEmployee(Employee employee);
 }
 

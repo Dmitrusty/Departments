@@ -3,7 +3,6 @@ package myapp.controllers;
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
 import myapp.service.InterfaceEmployeesService;
-//import myapp.service.implementation.jdbc.DepartmentsService;
 import myapp.service.implementation.hibernate.DepartmentsService;
 import myapp.service.implementation.hibernate.EmployeesService;
 
@@ -33,7 +32,7 @@ public class ListEmployeesController implements InterfaceController {
 
                 if (department != null && departmentName != null) {
                     request.setAttribute("departmentName", departmentName);
-                    request.setAttribute("employeesList", employeesService.getEmployeesByDepartmentId(department.getId()));
+                    request.setAttribute("employeesList", department.getEmployeesList());
                 } else {
                     request.setAttribute("infoMessage", "Задайте правильное название отдела для вывода списка его соторудников.");
                 }

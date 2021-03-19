@@ -22,15 +22,14 @@ public class Department {
     @MatchPattern(pattern = "[\\w_ А-Яа-я]+", message = "Допустимы только буквы, цифры и _")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = Employee.class,
-            mappedBy = "workingDepartment", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.REMOVE, targetEntity = Employee.class,
+            mappedBy = "workingDepartment", orphanRemoval = true, fetch = FetchType.EAGER)
     List<Employee> employeesList = new ArrayList<>();
 
     public Department() {
     }
 
     public Department(String name) {
-        this.id = 0L;
         this.name = name;
     }
 
