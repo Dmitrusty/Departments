@@ -2,12 +2,11 @@ package myapp.service.implementation.hibernate;
 
 import myapp.model.Department;
 import myapp.service.InterfaceDepartmentsService;
-import myapp.utils.HibernateSetup;
+import myapp.utils.HiberNative;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DepartmentsService implements InterfaceDepartmentsService {
@@ -19,71 +18,61 @@ public class DepartmentsService implements InterfaceDepartmentsService {
 
     @Override
     public Department getDepartmentByName(String name) {
-        Department result = null;
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        try {
-            result = entityManager.createQuery("select d " +
-                    " from Department d " +
-                    " where d.name = :name ", Department.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
+        Department result = (Department) session.createQuery("select d from Department d where d.name = :name")
+            .setParameter("name", name)
+            .uniqueResult();
 
-        } catch (NoResultException e) {
-            logger.log(Level.WARNING, "get Department By Name: no department with required name " + name);
-        }
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
+        transaction.commit();
+        session.close();
         return result;
     }
 
     @Override
     public void deleteDepartmentById(Long id) {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        Department department = entityManager.find(Department.class, id);
-        entityManager.remove(department);
+        Department department = session.find(Department.class, id);
+        session.delete(department);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public List<Department> getAllDepartments() {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        List<Department> result = entityManager.createQuery("select d from Department d", Department.class).getResultList();
+        List<Department> result = session.createQuery("select d from Department d").list();
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
         return result;
     }
 
     @Override
     public void updateExistingDepartment(Department newDepartment) {
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        session.merge(newDepartment);
 
-        entityManager.merge(newDepartment);
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void addDepartment(Department department) {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        entityManager.persist(department);
+        session.save(department);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
     }
 }

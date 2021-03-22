@@ -42,14 +42,6 @@ public class Department {
         return new Department(this.id, this.name);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Long getId() {
         return id;
     }
@@ -58,8 +50,20 @@ public class Department {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Employee> getEmployeesList() {
         return employeesList;
+    }
+
+    public void setEmployeesList(List<Employee> employeesList) {
+        this.employeesList = employeesList;
     }
 
     public boolean addEmployee(Employee employee) {
