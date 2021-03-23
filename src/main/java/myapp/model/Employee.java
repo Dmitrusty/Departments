@@ -22,7 +22,7 @@ public class Employee {
 
     @NotNull(message = "Дата начала работы должна быть задана.")
     @NotEmpty(message = "Пожалуйста, введите дату начала работы.")
-    @ValidateWithMethod(methodName = "isValidDate", parameterType = LocalDate.class, message = "Невозможная дата начала работы.")
+    @ValidateWithMethod(methodName = "isValidDate", parameterType = LocalDate.class, message = "Невозможная дата начала работы")
     private LocalDate startDate;
 
     @NotNull(message = "Размер зарплаты должен быть задан.")

@@ -2,10 +2,10 @@ package myapp.service.implementation.hibernate;
 
 import myapp.model.Employee;
 import myapp.service.InterfaceEmployeesService;
-import myapp.utils.HibernateSetup;
+import myapp.utils.HiberNative;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EmployeesService implements InterfaceEmployeesService {
@@ -17,67 +17,61 @@ public class EmployeesService implements InterfaceEmployeesService {
 
     @Override
     public Employee getEmployeeById(Long id) {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        Employee result = entityManager.find(Employee.class, id);
+        Employee result = session.find(Employee.class, id);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
         return result;
     }
 
     @Override
     public Employee getEmployeeByName(String name) {
-        Employee result = null;
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Employee result = (Employee) session.createQuery("select e from Employee e where e.name = :name")
+                .setParameter("name", name)
+                .uniqueResult();
 
-        try {
-            result = entityManager.createQuery("select e from Employee e where e.name = :name", Employee.class)
-                    .setParameter("name", name)
-                    .getSingleResult();
-        } catch (Exception e) {
-            logger.log(Level.INFO, "get EmployeeBy By Name: no employee with required name ");
-        }
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
         return result;
     }
 
     @Override
     public void deleteEmployeeById(Long id) {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        Employee employee = entityManager.find(Employee.class, id);
-        entityManager.remove(employee);
+        Employee employee = session.find(Employee.class, id);
+        session.delete(employee);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void updateExistingEmployee(Employee newEmployee) {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        entityManager.merge(newEmployee);
+        session.merge(newEmployee);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
     }
 
     @Override
     public void addEmployee(Employee employee) {
-        EntityManager entityManager = HibernateSetup.getFactory().createEntityManager();
-        entityManager.getTransaction().begin();
+        Session session = HiberNative.getSession();
+        Transaction transaction = session.beginTransaction();
 
-        entityManager.persist(employee);
+        session.save(employee);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        transaction.commit();
+        session.close();
     }
 }
