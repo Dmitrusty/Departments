@@ -32,24 +32,24 @@ public class Employee {
     private double salary;
 
     @ManyToOne
-    private Department workingDepartment;
+    private Department department;
 
     public Employee() {
     }
 
-    public Employee(Long id, String name, LocalDate startDate, double salary, Department workingDepartment) {
+    public Employee(Long id, String name, LocalDate startDate, double salary, Department department) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.salary = salary;
-        this.workingDepartment = workingDepartment;
+        this.department = department;
     }
 
-    public Employee(String name, LocalDate startDate, double salary, Department workingDepartment) {
+    public Employee(String name, LocalDate startDate, double salary, Department department) {
         this.name = name;
         this.startDate = startDate;
         this.salary = salary;
-        this.workingDepartment = workingDepartment;
+        this.department = department;
     }
 
     private Employee(Employee employee) {
@@ -57,7 +57,7 @@ public class Employee {
         this.name = employee.name;
         this.startDate = employee.startDate;
         this.salary = employee.salary;
-        this.workingDepartment = employee.workingDepartment;
+        this.department = employee.department;
     }
 
     @Deprecated
@@ -102,11 +102,11 @@ public class Employee {
     }
 
     public Department getDepartment() {
-        return workingDepartment;
+        return department;
     }
 
-    public void setDepartment(Department workingDepartment) {
-        this.workingDepartment = workingDepartment;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
 }

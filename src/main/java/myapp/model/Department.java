@@ -23,7 +23,7 @@ public class Department {
     private String name;
 
     @OneToMany(cascade = CascadeType.REMOVE, targetEntity = Employee.class,
-            mappedBy = "workingDepartment", orphanRemoval = true, fetch = FetchType.EAGER)
+            mappedBy = "department", orphanRemoval = true, fetch = FetchType.EAGER)
     List<Employee> employeesList = new ArrayList<>();
 
     public Department() {

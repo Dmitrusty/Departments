@@ -14,7 +14,7 @@
     <%@ include file="/fragments/infoPanel.jsp" %>
 
     <div class="w3-container w3-blue">
-        <h2>Введите логин и пароль:</h2>
+        <h2>Введите логин (1) и пароль (1):</h2>
     </div>
 
     <div>
