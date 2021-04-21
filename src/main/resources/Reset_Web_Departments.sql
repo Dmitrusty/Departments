@@ -1,5 +1,6 @@
 drop table if exists employees;
 drop table if exists departments;
+drop table if exists hibernate_sequence;
 
 
 CREATE TABLE if not exists departments(
@@ -19,7 +20,6 @@ CREATE TABLE IF NOT EXISTS employees(
     salary DECIMAL(8, 2) NOT NULL,
     department_id INT NOT NULL,
     FOREIGN KEY (department_id) REFERENCES departments (id)
-
 );
 
 insert into employees (name, startDate, salary, department_id)values ('Bob Marley', '1997-01-01', 2000.00, 1);
@@ -30,3 +30,9 @@ insert into employees (name, startDate, salary, department_id)values ('О́рв�
 insert into employees (name, startDate, salary, department_id)values ('Томас Эдисон', '1927-12-25', 3000.15, 3);
 insert into employees (name, startDate, salary, department_id)values ('Адольф Гитлер', '1925-11-15', 100, 4);
 
+
+CREATE TABLE IF NOT EXISTS hibernate_sequence(
+    next_val bigint null
+);
+
+insert into hibernate_sequence (next_val) values ((select max(id) from employees) + 1);
