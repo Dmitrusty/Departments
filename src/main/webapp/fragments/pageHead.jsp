@@ -1,6 +1,6 @@
 <head>
     <title>WebApp_010_Departments</title>
-    <link rel="stylesheet" href="/styles/w3.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/w3.css">
 
     <style>
         .big {font-size: 1.5em}

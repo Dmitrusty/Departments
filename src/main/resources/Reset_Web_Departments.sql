@@ -3,7 +3,7 @@ drop table if exists departments;
 
 
 CREATE TABLE if not exists departments(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     name varchar(255) not null
 );
 
@@ -13,7 +13,7 @@ INSERT INTO departments values (3, 'Security');
 INSERT INTO departments values (4, 'Cleaners');
 
 CREATE TABLE IF NOT EXISTS employees(
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     name VARCHAR (255) NOT NULL,
     startDate DATE NOT NULL,
     salary DECIMAL(8, 2) NOT NULL,

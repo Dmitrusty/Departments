@@ -5,20 +5,28 @@
 
     <persistence-unit name="myapp.utils.entitymanager.jpa">
         <description>
-            Persistence unit for the JPA Hibernate MySQL mapping
+            Persistence unit for JPA Hibernate PostgreSQL mapping
         </description>
 
         <class>myapp.model.Employee</class>
         <class>myapp.model.Department</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/web_departments" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="1234" />
+            <!-- JDBC настройки -->
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/departments" />
+            <property name="javax.persistence.jdbc.user" value="dep" />
+            <property name="javax.persistence.jdbc.password" value="dep" />
 
-            <property name="hibernate.show_sql" value="true" />
+            <!-- Диалект PostgreSQL -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+
+            <!-- Автообновление схемы (можно удалить в продакшене) -->
             <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <!-- Логирование SQL-запросов -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
         </properties>
 
     </persistence-unit>

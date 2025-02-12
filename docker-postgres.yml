@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:15.2
+    container_name: db-departments
+    environment:
+      - POSTGRES_USER=dep
+      - POSTGRES_PASSWORD=dep
+      - POSTGRES_DB=departments
+    ports:
+      - 5432:5432
+    volumes:
+      - /opt/pet/volume/postgres:/data/db
